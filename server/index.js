@@ -4,7 +4,7 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 //during development comment this out.
 //when something is completed, add this back in.
-const uri = `mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@ds249249.mlab.com:49249/the-kitchen-sink`;
+const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@ds249249.mlab.com:49249/the-kitchen-sink`;
 const devURI = 'mongodb://kitchensink:kitchensink@ds249249.mlab.com:49249/the-kitchen-sink';
 const mongodb = require('mongodb');
 const PORT = process.env.PORT || 5000;
