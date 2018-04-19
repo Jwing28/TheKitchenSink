@@ -20,7 +20,7 @@ class App extends Component {
       })
       .then(json => {
         this.setState({
-          message: json.message,
+          message: JSON.stringify(json),
           fetching: false
         });
       }).catch(e => {

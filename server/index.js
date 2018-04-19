@@ -2,7 +2,10 @@ const express = require('express');
 const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
-const uri = 'mongodb://kitchensink:kitchensink@ds249249.mlab.com:49249/the-kitchen-sink';
+//during development comment this out.
+//when something is completed, add this back in.
+const uri = `mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@ds249249.mlab.com:49249/the-kitchen-sink`;
+const devURI = 'mongodb://kitchensink:kitchensink@ds249249.mlab.com:49249/the-kitchen-sink';
 const mongodb = require('mongodb');
 const PORT = process.env.PORT || 5000;
 
@@ -22,25 +25,25 @@ if (cluster.isMaster) {
 } else {
   const app = express();
 
-  //connect to mongodb db on mlab
-  //this will be put inside one of the api routes
-  mongodb.MongoClient.connect(uri, (err, client) => {
-    let db = client.db('the-kitchen-sink');
-
-    db.collection('users').findOne({}, (findErr, doc) => {
-      if(findErr) throw findErr
-      console.log('docs: ', doc);
-      client.close();
-    })
-  });
-
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
   // Answer API requests.
   app.get('/api', function (req, res) {
-    res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from server!"}');
+
+    //connect to mongodb db on mlab
+    //this will be put inside one of the api routes
+    mongodb.MongoClient.connect(uri, (err, client) => {
+      let db = client.db('the-kitchen-sink');
+
+      db.collection('users').findOne({}, (findErr, doc) => {
+        if(findErr) throw findErr
+        console.log('docs: ', doc);
+        res.set('Content-Type', 'application/json');
+        res.send(doc);
+        client.close();
+      })
+    });
   });
 
   // All (remaining) requests return the React app, so it can handle routing.
