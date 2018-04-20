@@ -4,12 +4,26 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const mongoose = require('mongoose');
 const Users = require('./schema/users');
+//bcrypt for user authentication: salting and hashing
+var bcrypt = require('bcrypt');
+const saltRounds = 10; //difficulty lvl to brute force the hash
 //during development comment this out.
 //when something is completed, add this back in.
 const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@ds249249.mlab.com:49249/the-kitchen-sink`;
 const devURI = 'mongodb://kitchensink:kitchensink@ds249249.mlab.com:49249/the-kitchen-sink';
 const mongodb = require('mongodb');
 const PORT = process.env.PORT || 5000;
+
+//hash the password
+bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+    // Store hash in your password DB.
+});
+
+//load hashed psw from db 
+// Load hash from your password DB.
+bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
+    // res == true
+});
 
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
