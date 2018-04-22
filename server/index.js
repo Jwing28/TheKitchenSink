@@ -14,17 +14,6 @@ const devURI = 'mongodb://kitchensink:kitchensink@ds249249.mlab.com:49249/the-ki
 const mongodb = require('mongodb');
 const PORT = process.env.PORT || 5000;
 
-//hash the password
-bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
-    // Store hash in your password DB.
-});
-
-//load hashed psw from db 
-// Load hash from your password DB.
-bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
-    // res == true
-});
-
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
   console.error(`Node cluster master ${process.pid} is running`);
@@ -44,18 +33,58 @@ if (cluster.isMaster) {
   // Serve any static files.
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-  // Answer API requests.
-  app.get('/api', function (req, res) {
-    //connect to mongodb on mlab
-    mongoose.connect(uri);
+  mongoose.connect(devURI);
 
-    Users.find({}, function(err,users) {
-      console.log('can we see the users? ', users);
-      res.set('Content-Type', 'application/json');
-      res.send(users);
-      mongoose.connection.close();
-    });
-  });
+  //connect
+  //lets try to add the user.
+  //check mlab
+    //if okay
+      //try to test password to see if they are the same (put thru bcrypt)
+      // const testUser = {
+      //   username:'tomHanks',
+      //   password:'forestgump',
+      //   favorites:["chocolate cake"]
+      // };
+      //
+      // const saltRounds = 10;
+      // bcrypt.hash(testUser.password, saltRounds).then(function(hash) {
+      //     // created hash. Store hash in your passwordDB.
+      //     testUser.password = hash;
+      //     Users.create(testUser,(err) => {
+      //       if (err) throw new Error(`save to db error: ${err}`)
+      //
+      //       console.log('User has been saved to database');
+      //       mongoose.connection.close();
+      //     });
+      // });
+
+      Users.find({}, function(err,users) {
+        let forestpsw = users.filter((user) => user.username === 'tomHanks')[0].password;
+        const myPlaintextPassword = 'forestgump';
+        //load hashed psw from mlab
+        // Load hash from your password DB.
+        bcrypt.compare(myPlaintextPassword, forestpsw).then(function(res) {
+            // res == true if not, res == false
+            console.log(`does password match? ${res}`);
+        });
+
+        mongoose.connection.close();
+      });
+
+
+
+  // // Answer API requests.
+  // app.get('/api', function (req, res) {
+  //   //connect to mongodb on mlab
+  //   mongoose.connect(uri);
+  //
+    // Users.find({}, function(err,users) {
+    //   console.log('can we see the users? ', users);
+    //   res.set('Content-Type', 'application/json');
+    //   res.send(users);
+    //   mongoose.connection.close();
+    // });
+  // });
 
   // All (remaining) requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
