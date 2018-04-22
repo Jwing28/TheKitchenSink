@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router'
 import Login from './Login';
 import Signup from './Signup';
 import Landing from './Landing';
+import Profile from '../users/Profile';
 import FourOhFour from '../components/404';
 
 
@@ -14,6 +15,7 @@ class Main extends Component {
         <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
+        <Route path="/profile" component={Profile}/>
         <Route component={FourOhFour}/>
       </Switch>
     );

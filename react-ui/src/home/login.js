@@ -1,3 +1,9 @@
 import React from 'react';
-const Login = () => <div>I am login.</div>;
+import { Link } from 'react-router-dom';
+
+const Login = () => (
+  <div>
+    <div><Link to='/profile'>Profile</Link></div>
+  </div>
+);
 export default Login;
