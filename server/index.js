@@ -58,33 +58,33 @@ if (cluster.isMaster) {
       //     });
       // });
 
-      Users.find({}, function(err,users) {
-        let forestpsw = users.filter((user) => user.username === 'tomHanks')[0].password;
-        const myPlaintextPassword = 'forestgump';
-        //load hashed psw from mlab
-        // Load hash from your password DB.
-        bcrypt.compare(myPlaintextPassword, forestpsw).then(function(res) {
-            // res == true if not, res == false
-            console.log(`does password match? ${res}`);
-        });
-
-        mongoose.connection.close();
-      });
+      // Users.find({}, function(err,users) {
+      //   let forestpsw = users.filter((user) => user.username === 'tomHanks')[0].password;
+      //   const myPlaintextPassword = 'forestgump';
+      //   //load hashed psw from mlab
+      //   // Load hash from your password DB.
+      //   bcrypt.compare(myPlaintextPassword, forestpsw).then(function(res) {
+      //       // res == true if not, res == false
+      //       console.log(`does password match? ${res}`);
+      //   });
+      //
+      //   mongoose.connection.close();
+      // });
 
 
 
   // // Answer API requests.
-  // app.get('/api', function (req, res) {
-  //   //connect to mongodb on mlab
-  //   mongoose.connect(uri);
-  //
-    // Users.find({}, function(err,users) {
-    //   console.log('can we see the users? ', users);
-    //   res.set('Content-Type', 'application/json');
-    //   res.send(users);
-    //   mongoose.connection.close();
-    // });
-  // });
+  app.get('/api', function (req, res) {
+    //connect to mongodb on mlab
+    mongoose.connect(uri);
+
+    Users.find({}, function(err,users) {
+      //console.log('can we see the users? ', users);
+      res.set('Content-Type', 'application/json');
+      res.send(users);
+      mongoose.connection.close();
+    });
+  });
 
   // All (remaining) requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
