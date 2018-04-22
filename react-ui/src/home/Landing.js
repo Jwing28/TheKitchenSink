@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-class Landing extends Component {
-  render() {
-    return(
-      <div>Welcome! I am landing.</div>
-    );
-  }
-}
-
+const Landing = () => (
+  <div>
+    <div><Link to='/login'>Login</Link></div>
+    <div><Link to='/signup'>Signup</Link></div>    
+  </div>
+);
 export default Landing;
