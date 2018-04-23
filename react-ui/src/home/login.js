@@ -7,22 +7,27 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username:'' , password:'', result: null, message:'' }
+    this.state = { username:'' , password:'', result:null }
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    fetch('/api')
+    const data = JSON.stringify({ username:this.state.username, password: this.state.password });
+
+    fetch('/login', {
+      method: 'POST',
+      body: data,
+      headers:{
+        'content-type':'application/json'
+      }
+    })
       .then(response => {
-        //ex. if response is not 200, throw error
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
         }
         return response.json();
       })
       .then(json => {
-        //logic should be in server not here
-
         this.setState({
           result: JSON.stringify(json),
         });

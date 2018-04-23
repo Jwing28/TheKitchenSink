@@ -3,6 +3,7 @@ const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const Users = require('./schema/users');
 //bcrypt for user authentication: salting and hashing
 var bcrypt = require('bcrypt');
@@ -32,66 +33,54 @@ if (cluster.isMaster) {
 
   // Serve any static files.
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+  // data must be run through body parser to populate req.body
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
   mongoose.connect(devURI);
 
-  //connect
-  //lets try to add the user.
-  //check mlab
-    //if okay
-      //try to test password to see if they are the same (put thru bcrypt)
-      // const testUser = {
-      //   username:'tomHanks',
-      //   password:'forestgump',
-      //   favorites:["chocolate cake"]
-      // };
-      //
-      // const saltRounds = 10;
-      // bcrypt.hash(testUser.password, saltRounds).then(function(hash) {
-      //     // created hash. Store hash in your passwordDB.
-      //     testUser.password = hash;
-      //     Users.create(testUser,(err) => {
-      //       if (err) throw new Error(`save to db error: ${err}`)
-      //
-      //       console.log('User has been saved to database');
-      //       mongoose.connection.close();
-      //     });
-      // });
-
-      // Users.find({}, function(err,users) {
-      //   let forestpsw = users.filter((user) => user.username === 'tomHanks')[0].password;
-      //   const myPlaintextPassword = 'forestgump';
-      //   //load hashed psw from mlab
-      //   // Load hash from your password DB.
-      //   bcrypt.compare(myPlaintextPassword, forestpsw).then(function(res) {
-      //       // res == true if not, res == false
-      //       console.log(`does password match? ${res}`);
-      //   });
-      //
-      //   mongoose.connection.close();
-      // });
+  // const saltRounds = 10;
+  // bcrypt.hash(testUser.password, saltRounds).then(function(hash) {
+  //     // created hash. Store hash in your passwordDB.
+  //     testUser.password = hash;
+  //     Users.create(testUser,(err) => {
+  //       if (err) throw new Error(`save to db error: ${err}`)
+  //
+  //       console.log('User has been saved to database');
+  //       mongoose.connection.close();
+  //     });
+  // });
 
 
 
-  // // Answer API requests.
-  app.get('/api', function (req, res) {
-    //connect to mongodb on mlab
-    mongoose.connect(uri);
-
-    Users.find({}, function(err,users) {
-      //console.log('can we see the users? ', users);
-      res.set('Content-Type', 'application/json');
-      res.send(users);
+  app.post('/login', (req, res) => {
+    Users.find({ username: req.body.username }, (err, user) => {
+      if (err) throw new Error(err)
+      if(user.length) {
+        let hash = user.filter((user) => user.username === req.body.username)[0].password;
+        bcrypt.compare(req.body.password, hash).then(function(res) {
+            // res == true if not, res == false
+            console.log(`does password match? ${res}`);
+            if(res) { //psw match, authenticate user, send back username and favorites?
+              res.send({ result: 'success'})
+            } else {
+              //psw is not correct
+              res.send({ error: 'Incorrect password'});
+            }
+        });
+      } else {
+        res.send({ error: 'User not found'})
+      }
       mongoose.connection.close();
     });
   });
 
   // All (remaining) requests return the React app, so it can handle routing.
-  app.get('*', function(request, response) {
+  app.get('*', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
   });
 
-  app.listen(PORT, function () {
+  app.listen(PORT, () => {
     console.error(`Node cluster worker ${process.pid}: listening on port ${PORT}`);
   });
 }
