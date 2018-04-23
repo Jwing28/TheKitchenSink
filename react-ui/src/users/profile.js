@@ -6,7 +6,7 @@ class Profile extends Component {
     console.log('access via withRouter?', this.props.location.state.user);
     return(
       <div>
-        I am profile.
+        Welcome {this.props.location.state.user.username} !
       </div>
     );
   }
