@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
 import { Button } from 'react-bootstrap';
 
@@ -7,7 +7,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username:'' , password:'', result:null }
+    this.state = { username:'' , password:'', result:null, error: false }
   }
 
   onSubmit = (e) => {
@@ -27,10 +27,16 @@ class Login extends Component {
         }
         return response.json();
       })
-      .then(json => {
-        this.setState({
-          result: JSON.stringify(json),
-        });
+      .then(result => {
+        if('error' in result) {
+          this.setState({ error: !this.state.error });
+        } else {
+
+          this.props.history.push({
+            pathname:'/profile',
+            state: { user: result }
+          });
+        }
       }).catch(e => {
         console.log(`API call failed: ${e}`);
       });
@@ -42,6 +48,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log('context?', this.context);
     return(
       <form onSubmit={this.onSubmit} className="Login-form">
         <FieldGroup
@@ -67,7 +74,7 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
 //
 // class App extends Component {
 //   constructor(props) {

@@ -54,20 +54,20 @@ if (cluster.isMaster) {
 
 
   app.post('/login', (req, res) => {
-    Users.find({ username: req.body.username }, (err, user) => {
+    Users.find({ username: req.body.username }, (err, userArray) => {
       if (err) throw new Error(err)
-      if(user.length) {
-        let hash = user.filter((user) => user.username === req.body.username)[0].password;
-        bcrypt.compare(req.body.password, hash).then(function(res) {
-            // res == true if not, res == false
-            console.log(`does password match? ${res}`);
-            if(res) { //psw match, authenticate user, send back username and favorites?
-              res.send({ result: 'success'})
+      if(userArray.length) {
+        let userPassword = userArray.filter((userArray) => userArray.username === req.body.username)[0].password;
+
+        bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
+            if(passwordsMatch) {
+              const user = userArray[0];
+              res.send({ username: user.username, favorites: user.favorites});
             } else {
-              //psw is not correct
               res.send({ error: 'Incorrect password'});
             }
-        });
+        })
+        .catch((err) => console.log(`Error comparing passwords: ${err}`));
       } else {
         res.send({ error: 'User not found'})
       }
