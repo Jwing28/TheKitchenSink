@@ -1,0 +1,17 @@
+.card-container {
+  width: 30vw;
+  height: 30vh;
+  border: 1px solid black;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+.card-recipe-name {
+  margin-left: 5px;
+}
+
+.card-actions {
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+}
