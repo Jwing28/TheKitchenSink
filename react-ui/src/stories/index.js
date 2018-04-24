@@ -6,6 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
 import Card from '../components/card';
+import Grid from '../components/grid';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -20,4 +21,15 @@ storiesOf('Button', module)
   ));
 
 storiesOf('CardComponent', module)
-  .add('base', () => <Card />)
+  .add('base', () => <Card />);
+
+const recipes = [{ recipeName: "PB + J", image:"http://via.placeholder.com/202x150" },
+  { recipeName: "Tuna Casserole", image:"http://via.placeholder.com/202x150" },
+  { recipeName: "Spinach Omelete", image:"http://via.placeholder.com/202x150" },
+  { recipeName: "Kale Smoothie", image:"http://via.placeholder.com/202x150" },
+  { recipeName: "Chicken Lasagna", image:"http://via.placeholder.com/202x150" },
+  { recipeName: "Beef Stew", image:"http://via.placeholder.com/202x150" }  
+];
+
+storiesOf('Grid', module)
+  .add('with CardComponent', () => <Grid recipes={recipes} />);
