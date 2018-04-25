@@ -1,41 +1,61 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Grid from '../components/grid';
+import List from '../components/list';
+import { Button, PageHeader } from 'react-bootstrap';
+import FieldGroup from '../components/fieldgroup';
+import './styles/Profile.css';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user:{}, ingredients:[]};
+    this.state = { user:{}, ingredient: '', ingredients:[], limit: 5, };
   }
 
-  componentDidMount() {
-    //go get the api data to render
-    let apiKey = 'c25afe65342f2138c001fcb789db1059';
-    //http://food2fork.com/api/search
-    //q=comma separated strings of ingredients
-    //sort=r most popular recipes with these ingredients
-    //max 30 results returned
-    let url = `http://cors-proxy.htmldriven.com/?url=http://food2fork.com/api/search?key=c25afe65342f2138c001fcb789db1059&sort=r&q=shredded%20chicken`;
-    //let ingredients = this.state.ingredients.map((ingredient) => `${}`)
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(recipes => {
-        console.log('data??', JSON.parse(recipes.body))
-      })
-      .catch(error => {
-        console.log(`Error retreiving recipe data ${error}`)
-      });
+  onSubmit = (event) => {
+    event.preventDefault();
+    if(this.state.ingredients.length === this.state.limit) {
+
+    }
+    this.setState(prevState => ({
+      ingredients: [...prevState.ingredients, this.state.ingredient],
+      ingredient: ''
+    }));
+  }
+
+  onInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   render() {
     //this.props.location.state.user.username or favorites
+    const example = ["Ingredient","Ingredient"];
     return(
-      <div>
-        Welcome {this.props.location.state.user.username} !
-
+      <div className="Profile-container">
+        <PageHeader>
+          Welcome, {this.props.location.state.user.username}.
+          <div>
+            <small>Enter your ingredients (max 5):</small>
+          </div>
+        </PageHeader>
+        <form onSubmit={this.onSubmit} className="Profile-form">
+          <FieldGroup
+            type="text"
+            label="Ingredient"
+            name="ingredient"
+            value={this.state.ingredient}
+            onChange={this.onInputChange}
+          />
+          <div className="Profile-form-actions">
+            <Button type="submit" bsStyle="primary">Add</Button>
+            <Button bsStyle="success">Submit</Button>
+          </div>
+        </form>
+        <List items={this.state.ingredients.length ?
+          this.state.ingredients : example}
+          className="Profile-ingredients"
+        />
       </div>
     );
   }

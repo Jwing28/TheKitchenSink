@@ -1,0 +1,16 @@
+.Profile-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Profile-form {
+  margin-bottom: 5%;
+}
+
+.Profile-form-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
