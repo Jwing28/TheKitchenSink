@@ -4,6 +4,7 @@ import Login from './Login';
 import Signup from './Signup';
 import Landing from './Landing';
 import Profile from '../users/Profile';
+import Recipes from '../users/Recipes';
 import FourOhFour from '../components/404';
 
 
@@ -16,6 +17,7 @@ class Main extends Component {
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/profile" component={Profile}/>
+        <Route path="/recipes" component={Recipes}/>
         <Route component={FourOhFour}/>
       </Switch>
     );

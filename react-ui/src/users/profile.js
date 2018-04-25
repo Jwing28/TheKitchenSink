@@ -12,15 +12,23 @@ class Profile extends Component {
     this.state = { user:{}, ingredient: '', ingredients:[], limit: 5, };
   }
 
-  onSubmit = (event) => {
+  onAdd = (event) => {
     event.preventDefault();
-    if(this.state.ingredients.length === this.state.limit) {
-
-    }
+    // if(this.state.ingredients.length === this.state.limit) {
+    //
+    // }
     this.setState(prevState => ({
       ingredients: [...prevState.ingredients, this.state.ingredient],
       ingredient: ''
     }));
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.props.history.push({
+      pathname:'./Recipes',
+      state: { ingredients: this.state.ingredients }
+    });
   }
 
   onInputChange = (event) => {
@@ -39,7 +47,7 @@ class Profile extends Component {
             <small>Enter your ingredients (max 5):</small>
           </div>
         </PageHeader>
-        <form onSubmit={this.onSubmit} className="Profile-form">
+        <form onSubmit={this.onAdd} className="Profile-form">
           <FieldGroup
             type="text"
             label="Ingredient"
@@ -49,7 +57,7 @@ class Profile extends Component {
           />
           <div className="Profile-form-actions">
             <Button type="submit" bsStyle="primary">Add</Button>
-            <Button bsStyle="success">Submit</Button>
+            <Button bsStyle="success" onClick={this.onSubmit}>Submit</Button>
           </div>
         </form>
         <List items={this.state.ingredients.length ?
