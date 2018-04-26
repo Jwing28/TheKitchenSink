@@ -1,20 +1,17 @@
 .card-container {
-  width: 25%;
-  height: 25%;
   border-radius: 5px;
   margin: 2% 0;
   box-sizing: border-box;
 }
 
 .card-thumbnail-container {
-  padding-top: 5px;
   max-width: 100%;
   max-height: 100%;
 }
 
 .card-recipe-name {
   font-size: 1.7rem;
-  font-family: serif;
+  font-family: cursive, sans-serif;
   font-weight: bold;
 }
 
