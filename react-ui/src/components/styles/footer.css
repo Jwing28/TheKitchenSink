@@ -1,0 +1,29 @@
+.Footer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.Footer > section {
+  width: 100%;
+  padding: 1% 5%;
+}
+
+.Footer-links {
+  background-color: #1e2228;
+  padding: 0 2%;
+  color: white;
+}
+
+.Footer-author {
+  background-color: lightgray;
+}
+
+.Footer-author > address {
+  margin-bottom: 0;
+  padding: 1% 0;
+}
