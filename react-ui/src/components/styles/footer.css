@@ -2,15 +2,14 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   font-size: 2rem;
+  padding-top: 10px;
 }
 
 .Footer > section {
   width: 100%;
-  padding: 1% 5%;
+  padding: 2% 5%;
 }
 
 .Footer-links {

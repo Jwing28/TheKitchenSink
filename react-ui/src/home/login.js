@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
 import { Button } from 'react-bootstrap';
+import Header from '../components/header';
+import Footer from '../components/footer';
+import './styles/Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -48,28 +51,30 @@ class Login extends Component {
   }
 
   render() {
-    console.log('context?', this.context);
     return(
-      <form onSubmit={this.onSubmit} className="Login-form">
-        <FieldGroup
-          id="formControlsUsername"
-          label="Username"
-          name="username"
-          placeholder="Enter your username"
-          value={this.state.username}
-          onChange={this.onInputChange}
-        />
-        <FieldGroup
-          id="formControlsPassword"
-          label="Password"
-          name="password"
-          value={this.state.password}
-          onChange={this.onInputChange}
-        />
-        <div><Link to='/profile'>Profile</Link></div>
-        <Button type="submit">Submit</Button>
-        <h3>See users: {this.state.result}</h3>
-      </form>
+      <div className="Login-container">
+        <Header />
+          <form onSubmit={this.onSubmit} className="Login-form">
+            <FieldGroup
+              id="formControlsUsername"
+              label="Username"
+              name="username"
+              placeholder="Enter your username"
+              value={this.state.username}
+              onChange={this.onInputChange}
+            />
+            <FieldGroup
+              id="formControlsPassword"
+              label="Password"
+              name="password"
+              value={this.state.password}
+              onChange={this.onInputChange}
+            />
+            <Button type="submit">Submit</Button>
+            <h3>See users: {this.state.result}</h3>
+          </form>
+        <Footer />
+      </div>
     );
   }
 }
