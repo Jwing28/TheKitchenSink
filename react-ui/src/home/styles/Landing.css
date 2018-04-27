@@ -1,0 +1,32 @@
+.Landing-container {
+  background-color: #f4ce42;
+}
+
+.Landing-content {
+  width: 50%;
+  height: 90vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Landing-panel {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.Landing-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Landing-buttons {
+  height: 5vh;
+  width: 15vw;
+  font-size: 2rem;
+  margin: 5px;
+}
