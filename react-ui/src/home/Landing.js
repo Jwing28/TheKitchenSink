@@ -12,8 +12,8 @@ const Landing = () => (
           TheKitchenSink
         </h1>
         <div className="Landing-actions">
-          <Link to='/login'><button className="Landing-buttons">Login</button></Link>
-          <Link to='/signup'><button className="Landing-buttons">Sign Up</button></Link>
+          <Link to='/login'><button className="Landing-buttons">Signin</button></Link>
+          <Link to='/signup'><button className="Landing-buttons">Signup</button></Link>
         </div>
       </div>
     <Footer />

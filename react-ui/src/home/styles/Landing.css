@@ -3,7 +3,6 @@
 }
 
 .Landing-content {
-  width: 50%;
   height: 90vh;
   margin: 0 auto;
   display: flex;
@@ -25,8 +24,7 @@
 }
 
 .Landing-buttons {
-  height: 5vh;
-  width: 15vw;
-  font-size: 2rem;
-  margin: 5px;
+  font-size: 2.5rem;
+  margin: 20%;
+  border-radius: 5px;
 }
