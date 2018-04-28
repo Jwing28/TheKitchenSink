@@ -4,9 +4,14 @@ import './styles/card.css';
 
 class Card extends Component {
   onSave = () => {
-    fetch('/login', {
-      method: 'POST',
-      body: { recipe: this.props.recipe, username: this.props.username},
+    const data = JSON.stringify({
+      recipe: this.props.recipe,
+      username: this.props.username
+    });
+
+    fetch('/save', {
+      method: 'PUT',
+      body: data,
       headers:{
         'content-type':'application/json'
       }
@@ -15,7 +20,7 @@ class Card extends Component {
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
         }
-        return response.json();
+        console.log('result: ', response);
       })
       .catch(e => {
         console.log(`API call failed: ${e}`);

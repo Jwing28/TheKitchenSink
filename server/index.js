@@ -42,7 +42,7 @@ if (cluster.isMaster) {
     Users.find({ username: req.body.username }, (err, userArray) => {
       if (err) throw new Error(err)
       if(userArray.length) {
-        let userPassword = userArray.filter((userArray) => userArray.username === req.body.username)[0].password;
+        let userPassword = userArray.filter(user => user.username === req.body.username)[0].password;
 
         bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
             if(passwordsMatch) {
@@ -58,6 +58,18 @@ if (cluster.isMaster) {
       }
       mongoose.connection.close();
     });
+  });
+
+  app.put('/save', (req, res) => {
+    Users.update({
+      username: req.body.username },
+      { $push: { favorites: req.body.recipe} }
+    )
+    .then(result => {
+      console.log(`Recipe added: ${result}`);
+      res.send('Recipe Added.');
+    })
+    .catch(error => (console.log(`Error pushing to db: ${error}`)));
   });
 
   // All (remaining) requests return the React app, so it can handle routing.
