@@ -63,13 +63,41 @@ if (cluster.isMaster) {
   app.put('/save', (req, res) => {
     Users.update({
       username: req.body.username },
-      { $push: { favorites: req.body.recipe} }
-    )
+      { $push: { favorites: req.body.recipe }
+    })
     .then(result => {
       console.log(`Recipe added: ${result}`);
       res.send('Recipe Added.');
     })
-    .catch(error => (console.log(`Error pushing to db: ${error}`)));
+    .catch(error => console.log(`Error pushing to db: ${error}`));
+  });
+
+  //check if recipe is saved in favorites
+  app.put('/recipeStatus', (req, res) => {
+    console.log(req.body)
+    Users.find({
+      username: req.body.username
+    })
+    .then(userResult => {
+      //if result = [], username not found.
+      if(userResult.length) {
+        Users.find({
+          favorites: req.body.recipe
+        })
+        .then(recipeResult => {
+          if(recipeResult.length) {
+            res.send("success");
+          }
+        })
+        .catch(error => console.log(`Error: ${error}`));
+      }
+      throw new Error('User not found');
+    })
+    .catch(error => console.log(`Error: ${error}`));
+  });
+
+  app.delete('/recipe', (req, res) => {
+
   });
 
   // All (remaining) requests return the React app, so it can handle routing.

@@ -1,18 +1,72 @@
 import React, { Component } from 'react';
-import { Button, Col, Panel } from 'react-bootstrap';
+import { Button, Col, Label, Panel, Tooltip } from 'react-bootstrap';
 import './styles/card.css';
 
 class Card extends Component {
-  onSave = () => {
-    const data = JSON.stringify({
-      recipe: this.props.recipe,
-      username: this.props.username
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      recipeSaved: false,
+      previouslySaved: false,
+      unSave: false,
+      data: {
+        recipe: this.props.recipe,
+        username: this.props.username
+      }
+    };
+  }
+
+  componentDidMount() {
+    //before component mounts check if user has saved this recipe already
+      //if it is this.state.previouslySaved should be true (gray button)
+        //else remains false (green button)
+    const data = JSON.stringify(this.state.data);
+    fetch('/recipeStatus', {
+      method: 'PUT',
+      body: data,
+      headers: {
+        'content-type':'application/json'
+      }
+    })
+      .then(response => {
+        console.log('test server success response', response);
+        if(response.ok) {
+          this.setState({ previouslySaved: !this.state.previouslySaved });
+        }
+      })
+      .catch(error => {
+        console.log(`Attempt to check recipe status failed: ${error}`);
+      })
+  }
+
+  onUnSave = () => {
+    const data = JSON.stringify(this.state.data);
+
+    this.setState({ previouslySaved: !this.state.previouslySaved });
+    //remove it from DB!
+    fetch('recipe',{
+      method: 'DELETE',
+      body: data,
+      headers: {
+        'content-type':'application/json'
+      }
+    })
+    .then(response => {
+      this.setState({ unSave: !this.state.unSave });
+    })
+    .catch(error => {
+      console.log(`Attempted to delete recipe failed: ${error}`);
     });
+  }
+
+  onSave = () => {
+    const data = JSON.stringify(this.state.data);
 
     fetch('/save', {
       method: 'PUT',
       body: data,
-      headers:{
+      headers: {
         'content-type':'application/json'
       }
     })
@@ -20,10 +74,13 @@ class Card extends Component {
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
         }
-        console.log('result: ', response);
+        this.setState({
+          recipeSaved: !this.state.recipeSaved,
+          unSave: !this.state.unSave
+        });
       })
-      .catch(e => {
-        console.log(`API call failed: ${e}`);
+      .catch(error => {
+        console.log(`Attempt to save recipe failed: ${error}`);
       });
   }
 
@@ -43,9 +100,21 @@ class Card extends Component {
                   Source
                 </Button>
               </a>
-              <Button bsStyle="success" onClick={this.onSave}>
-                Save
-              </Button>
+              {
+                this.state.previouslySaved ?
+                <h4><Label onClick={this.onUnSave}>UnSave</Label></h4>
+                :<Button bsStyle="success" onClick={this.onSave}>Save</Button>
+              }
+              {
+                this.state.recipeSaved ?
+                <Tooltip placement="right">Recipe Saved.</Tooltip>
+                : null
+              }
+              {
+                this.state.unSave ?
+                <Tooltip placement="right">Recipe Unsaved.</Tooltip>
+                : null
+              }
             </p>
         </Panel>
       </Col>
