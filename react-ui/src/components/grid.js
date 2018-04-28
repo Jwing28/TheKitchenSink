@@ -9,7 +9,13 @@ const grid = (props) => (
       <Grid >
         <Row className="Grid-container">
           {props.items[0].recipes.map((item, idx) => (
-            <Card key={idx} recipeName={item.title} link={item.f2f_url} image={item.image_url} source={item.source_url} />
+            <Card
+              key={idx}
+              recipe={item.title} 
+              image={item.image_url}
+              source={item.source_url}
+              username={props.username}
+            />
           ))}
         </Row>
       </Grid>

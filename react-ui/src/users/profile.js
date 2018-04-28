@@ -8,15 +8,18 @@ import './styles/Profile.css';
 class Profile extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { user:{}, ingredient: '', ingredients:[], limit: 5, };
+    this.state = {
+      user: {},
+      ingredient: '',
+      ingredients:[],
+      limit: 5,
+      example: ['Ingredient, Ingredient']
+    };
   }
 
   onAdd = (event) => {
     event.preventDefault();
-    // if(this.state.ingredients.length === this.state.limit) {
-    //
-    // }
+    //update ingredients and reset ingredient state
     this.setState(prevState => ({
       ingredients: [...prevState.ingredients, this.state.ingredient],
       ingredient: ''
@@ -25,9 +28,13 @@ class Profile extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
+    //redirect to recipes page 
     this.props.history.push({
       pathname:'./Recipes',
-      state: { ingredients: this.state.ingredients }
+      state: {
+        ingredients: this.state.ingredients,
+        username: this.props.location.state.user.username
+      }
     });
   }
 
@@ -37,8 +44,6 @@ class Profile extends Component {
   }
 
   render() {
-    //this.props.location.state.user.username or favorites
-    const example = ["Ingredient","Ingredient"];
     return(
       <div className="Profile-container">
         <PageHeader>
@@ -61,7 +66,7 @@ class Profile extends Component {
           </div>
         </form>
         <List items={this.state.ingredients.length ?
-          this.state.ingredients : example}
+          this.state.ingredients : this.state.example}
           className="Profile-ingredients"
         />
       </div>

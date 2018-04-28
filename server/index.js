@@ -30,7 +30,6 @@ if (cluster.isMaster) {
 
 } else {
   const app = express();
-
   // Serve any static files.
   app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
   // data must be run through body parser to populate req.body
@@ -38,20 +37,6 @@ if (cluster.isMaster) {
   app.use(bodyParser.json());
 
   mongoose.connect(devURI);
-
-  // const saltRounds = 10;
-  // bcrypt.hash(testUser.password, saltRounds).then(function(hash) {
-  //     // created hash. Store hash in your passwordDB.
-  //     testUser.password = hash;
-  //     Users.create(testUser,(err) => {
-  //       if (err) throw new Error(`save to db error: ${err}`)
-  //
-  //       console.log('User has been saved to database');
-  //       mongoose.connection.close();
-  //     });
-  // });
-
-
 
   app.post('/login', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {

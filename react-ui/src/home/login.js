@@ -10,12 +10,20 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username:'' , password:'', result:null, error: false }
+    this.state = {
+      username:'',
+      password:'',
+      result: null,
+      error: false
+    };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    const data = JSON.stringify({ username:this.state.username, password: this.state.password });
+    const data = JSON.stringify({
+      username:this.state.username,
+      password: this.state.password
+    });
 
     fetch('/login', {
       method: 'POST',
@@ -71,7 +79,6 @@ class Login extends Component {
               onChange={this.onInputChange}
             />
             <Button type="submit">Submit</Button>
-            <h3>See users: {this.state.result}</h3>
           </form>
         <Footer />
       </div>

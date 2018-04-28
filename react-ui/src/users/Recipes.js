@@ -35,7 +35,7 @@ class Recipes extends Component {
     return(
       <div>
         <Header />
-        <Grid items={this.state.recipes} />
+        <Grid items={this.state.recipes} username={this.props.location.state.username} />
         <Footer />
       </div>
     );
