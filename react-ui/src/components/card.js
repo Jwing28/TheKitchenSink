@@ -18,10 +18,8 @@ class Card extends Component {
   }
 
   componentDidMount() {
-    //before component mounts check if user has saved this recipe already
-      //if it is this.state.previouslySaved should be true (gray button)
-        //else remains false (green button)
     const data = JSON.stringify(this.state.data);
+
     fetch('/recipeStatus', {
       method: 'PUT',
       body: data,
@@ -32,7 +30,9 @@ class Card extends Component {
       .then(response => {
         console.log('test server success response', response);
         if(response.ok) {
-          this.setState({ previouslySaved: !this.state.previouslySaved });
+          this.setState({
+            previouslySaved: !this.state.previouslySaved
+          });
         }
       })
       .catch(error => {
@@ -43,8 +43,6 @@ class Card extends Component {
   onUnSave = () => {
     const data = JSON.stringify(this.state.data);
 
-    this.setState({ previouslySaved: !this.state.previouslySaved });
-    //remove it from DB!
     fetch('recipe',{
       method: 'DELETE',
       body: data,
@@ -53,11 +51,17 @@ class Card extends Component {
       }
     })
     .then(response => {
-      this.setState({ unSave: !this.state.unSave });
+      this.setState({
+        unSave: !this.state.unSave,
+        recipeSaved: !this.state.recipeSaved,
+        previouslySaved: !this.state.recipeSaved
+      });
     })
     .catch(error => {
       console.log(`Attempted to delete recipe failed: ${error}`);
     });
+    //commented out for testing
+    // this.setState({ previouslySaved: !this.state.previouslySaved });
   }
 
   onSave = () => {
@@ -76,7 +80,7 @@ class Card extends Component {
         }
         this.setState({
           recipeSaved: !this.state.recipeSaved,
-          unSave: !this.state.unSave
+          previouslySaved: !this.state.previouslySaved
         });
       })
       .catch(error => {
@@ -107,12 +111,12 @@ class Card extends Component {
               }
               {
                 this.state.recipeSaved ?
-                <Tooltip placement="right">Recipe Saved.</Tooltip>
+                <Tooltip placement="right">Recipe saved.</Tooltip>
                 : null
               }
               {
                 this.state.unSave ?
-                <Tooltip placement="right">Recipe Unsaved.</Tooltip>
+                <Tooltip placement="right">Recipe removed.</Tooltip>
                 : null
               }
             </p>

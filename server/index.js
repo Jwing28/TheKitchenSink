@@ -74,7 +74,6 @@ if (cluster.isMaster) {
 
   //check if recipe is saved in favorites
   app.put('/recipeStatus', (req, res) => {
-    console.log(req.body)
     Users.find({
       username: req.body.username
     })
@@ -97,7 +96,15 @@ if (cluster.isMaster) {
   });
 
   app.delete('/recipe', (req, res) => {
-
+    Users.update({
+      username: req.body.username },
+      { $pull: { favorites: req.body.recipe }},
+      { multi: false },
+      (err, docsUpdated) => {
+        if (err) throw new Error(err)
+        console.log(`${docsUpdated} docs updated.`);
+        res.send('success');
+      }
   });
 
   // All (remaining) requests return the React app, so it can handle routing.
