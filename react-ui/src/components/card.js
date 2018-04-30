@@ -7,9 +7,7 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      recipeSaved: false,
-      previouslySaved: false,
-      unSave: false,
+      saved: false,
       data: {
         recipe: this.props.recipe,
         username: this.props.username
@@ -28,10 +26,11 @@ class Card extends Component {
       }
     })
       .then(response => {
-        console.log('test server success response', response);
-        if(response.ok) {
+       console.log('test server success response', response);
+        if(response.success) {
+          console.log('?',this.state.saved);
           this.setState({
-            previouslySaved: !this.state.previouslySaved
+            saved: !this.state.saved
           });
         }
       })
@@ -52,16 +51,14 @@ class Card extends Component {
     })
     .then(response => {
       this.setState({
-        unSave: !this.state.unSave,
-        recipeSaved: !this.state.recipeSaved,
-        previouslySaved: !this.state.recipeSaved
+        saved: !this.state.saved
       });
     })
     .catch(error => {
       console.log(`Attempted to delete recipe failed: ${error}`);
     });
     //commented out for testing
-    // this.setState({ previouslySaved: !this.state.previouslySaved });
+    // this.setState({ saved: !this.state.saved });
   }
 
   onSave = () => {
@@ -78,9 +75,9 @@ class Card extends Component {
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
         }
+
         this.setState({
-          recipeSaved: !this.state.recipeSaved,
-          previouslySaved: !this.state.previouslySaved
+          saved: !this.state.saved
         });
       })
       .catch(error => {
@@ -105,19 +102,9 @@ class Card extends Component {
                 </Button>
               </a>
               {
-                this.state.previouslySaved ?
+                this.state.saved ?
                 <h4><Label onClick={this.onUnSave}>UnSave</Label></h4>
                 :<Button bsStyle="success" onClick={this.onSave}>Save</Button>
-              }
-              {
-                this.state.recipeSaved ?
-                <Tooltip placement="right">Recipe saved.</Tooltip>
-                : null
-              }
-              {
-                this.state.unSave ?
-                <Tooltip placement="right">Recipe removed.</Tooltip>
-                : null
               }
             </p>
         </Panel>

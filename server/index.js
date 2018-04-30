@@ -68,6 +68,7 @@ if (cluster.isMaster) {
     .then(result => {
       console.log(`Recipe added: ${result}`);
       res.send('Recipe Added.');
+      mongoose.connection.close();
     })
     .catch(error => console.log(`Error pushing to db: ${error}`));
   });
@@ -78,18 +79,21 @@ if (cluster.isMaster) {
       username: req.body.username
     })
     .then(userResult => {
-      //if result = [], username not found.
       if(userResult.length) {
         Users.find({
           favorites: req.body.recipe
         })
         .then(recipeResult => {
           if(recipeResult.length) {
-            res.send("success");
+            res.send({ success: true });
+            mongoose.connection.close();
           }
+          res.send({ success: false});
+          throw new Error('Recipe not found');
         })
         .catch(error => console.log(`Error: ${error}`));
       }
+
       throw new Error('User not found');
     })
     .catch(error => console.log(`Error: ${error}`));
@@ -104,7 +108,8 @@ if (cluster.isMaster) {
         if (err) throw new Error(err)
         console.log(`${docsUpdated} docs updated.`);
         res.send('success');
-      }
+        mongoose.connection.close();
+      });
   });
 
   // All (remaining) requests return the React app, so it can handle routing.
