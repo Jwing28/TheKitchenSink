@@ -9,6 +9,9 @@ import Grid from '../components/grid';
 import List from '../components/list';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import Slider from '../components/slider';
+
+import './styles/index.css';
 
 storiesOf('CardComponent', module)
   .add('base', () => <Card />);
@@ -104,129 +107,19 @@ storiesOf('Header-Footer', module)
           <td>Row 10, Cell 3</td>
           <td>Row 10, Cell 4</td>
           </tr>
-          <tr>
-          <td>Row 11, Cell 1</td>
-          <td>Row 11, Cell 2</td>
-          <td>Row 11, Cell 3</td>
-          <td>Row 11, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 12, Cell 1</td>
-          <td>Row 12, Cell 2</td>
-          <td>Row 12, Cell 3</td>
-          <td>Row 12, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 13, Cell 1</td>
-          <td>Row 13, Cell 2</td>
-          <td>Row 13, Cell 3</td>
-          <td>Row 13, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 14, Cell 1</td>
-          <td>Row 14, Cell 2</td>
-          <td>Row 14, Cell 3</td>
-          <td>Row 14, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 15, Cell 1</td>
-          <td>Row 15, Cell 2</td>
-          <td>Row 15, Cell 3</td>
-          <td>Row 15, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 16, Cell 1</td>
-          <td>Row 16, Cell 2</td>
-          <td>Row 16, Cell 3</td>
-          <td>Row 16, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 17, Cell 1</td>
-          <td>Row 17, Cell 2</td>
-          <td>Row 17, Cell 3</td>
-          <td>Row 17, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 18, Cell 1</td>
-          <td>Row 18, Cell 2</td>
-          <td>Row 18, Cell 3</td>
-          <td>Row 18, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 19, Cell 1</td>
-          <td>Row 19, Cell 2</td>
-          <td>Row 19, Cell 3</td>
-          <td>Row 19, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 20, Cell 1</td>
-          <td>Row 20, Cell 2</td>
-          <td>Row 20, Cell 3</td>
-          <td>Row 20, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 21, Cell 1</td>
-          <td>Row 21, Cell 2</td>
-          <td>Row 21, Cell 3</td>
-          <td>Row 21, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 22, Cell 1</td>
-          <td>Row 22, Cell 2</td>
-          <td>Row 22, Cell 3</td>
-          <td>Row 22, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 23, Cell 1</td>
-          <td>Row 23, Cell 2</td>
-          <td>Row 23, Cell 3</td>
-          <td>Row 23, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 24, Cell 1</td>
-          <td>Row 24, Cell 2</td>
-          <td>Row 24, Cell 3</td>
-          <td>Row 24, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 25, Cell 1</td>
-          <td>Row 25, Cell 2</td>
-          <td>Row 25, Cell 3</td>
-          <td>Row 25, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 26, Cell 1</td>
-          <td>Row 26, Cell 2</td>
-          <td>Row 26, Cell 3</td>
-          <td>Row 26, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 27, Cell 1</td>
-          <td>Row 27, Cell 2</td>
-          <td>Row 27, Cell 3</td>
-          <td>Row 27, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 28, Cell 1</td>
-          <td>Row 28, Cell 2</td>
-          <td>Row 28, Cell 3</td>
-          <td>Row 28, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 29, Cell 1</td>
-          <td>Row 29, Cell 2</td>
-          <td>Row 29, Cell 3</td>
-          <td>Row 29, Cell 4</td>
-          </tr>
-          <tr>
-          <td>Row 30, Cell 1</td>
-          <td>Row 30, Cell 2</td>
-          <td>Row 30, Cell 3</td>
-          <td>Row 30, Cell 4</td>
-          </tr>
           </tbody>
           </table>
         <Footer />
       </div>
     );
   })
+
+  storiesOf('Slider', module)
+    .add('onClick', () =>  {
+        return (
+          <div className="Slider-container">
+            <Slider />
+          </div>
+        );
+    }
+  );

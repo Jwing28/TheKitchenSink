@@ -1,0 +1,12 @@
+/*
+
+  when using slider, how do we set up layout to be mid and left?
+  without doing it on parent?
+ */
+.Slider-container {
+  height: 100vh;
+  width: 100vw;
+  display:flex;
+  border: 1px solid black;
+  
+}
