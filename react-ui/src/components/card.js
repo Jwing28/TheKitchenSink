@@ -26,7 +26,6 @@ class Card extends Component {
       }
     })
       .then(response => {
-       console.log('test server success response', response);
         if(response.success) {
           console.log('?',this.state.saved);
           this.setState({

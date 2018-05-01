@@ -1,5 +1,6 @@
 .Slider {
   width: 20%;
+  min-width: 125px;
   height: 30%;
   background: black;
   color: white;
@@ -7,7 +8,7 @@
   padding-left: 0px;
   transition: margin-left;
   padding-left: 0%;
-  transition-duration: 1.5s;
+  transition-duration: 1s;
   margin-left: -15%;
 }
 
@@ -17,9 +18,19 @@
   text-align: right;
 }
 
-.Slider-clicked {
+.Slider-list {
+  display:none;
+  transition: 1s;
+}
+
+.Slider-list-expanded {
+  display: block;
+  transition: 1s;
+}
+
+.expanded {
   margin-left: -2%;
-  transition-duration: 1.5s;
+  transition-duration: 1s;
 }
 
 /*

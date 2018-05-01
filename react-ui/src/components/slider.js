@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Glyphicon, Panel } from 'react-bootstrap';
 import './styles/slider.css';
 
 class Slider extends Component {
@@ -7,31 +7,28 @@ class Slider extends Component {
     super(props);
 
     this.state = {
-      clicked: false,
+      expanded: false,
     };
   }
 
   toggleClass = () => {
-    console.log('check');
-    this.setState({ clicked: !this.state.clicked });
+    this.setState({ expanded: !this.state.expanded });
   }
 
+  //slider must have a link
   render() {
+    console.log('props', this.props.list)
     return(
-      <Panel className={this.state.clicked ? 'Slider Slider-clicked' : 'Slider'} onClick={this.toggleClass}>
-        <Panel.Heading className="Slider-heading">Top10</Panel.Heading>
-        <Panel.Body>
+      <Panel className={this.state.expanded ? 'Slider expanded' : 'Slider'} onClick={this.toggleClass}>
+        <Panel.Heading className="Slider-heading">
+          <Glyphicon glyph="heart" />
+        </Panel.Heading>
+        <Panel.Body className={this.state.expanded ? 'Slider-list Slider-list-expanded' : 'Slider-list'}>
           <ol>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
-            <li>Food item</li>
+            {this.props.list.length ?
+              this.props.list.map((item) => <li key={item}>{item}</li>)
+              : null
+          }
           </ol>
         </Panel.Body>
       </Panel>

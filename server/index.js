@@ -38,6 +38,17 @@ if (cluster.isMaster) {
 
   mongoose.connect(devURI);
 
+  app.put('/favorites', (req, res) => {
+    Users.find({ username: req.body.username }, (err, userArray) => {
+      if (err) throw new Error(err)
+      if(userArray.length) {
+        res.send({ favorites: userArray[0].favorites });
+      } else {
+        res.send({ error: 'User not found' });
+      }
+    })
+  });
+
   app.post('/login', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {
       if (err) throw new Error(err)
@@ -54,7 +65,7 @@ if (cluster.isMaster) {
         })
         .catch((err) => console.log(`Error comparing passwords: ${err}`));
       } else {
-        res.send({ error: 'User not found'})
+        res.send({ error: 'User not found' })
       }
       mongoose.connection.close();
     });
@@ -87,14 +98,15 @@ if (cluster.isMaster) {
           if(recipeResult.length) {
             res.send({ success: true });
             mongoose.connection.close();
+          }else {
+            res.send({ success: false});
+            //throw new Error('Recipe not found');
           }
-          res.send({ success: false});
-          throw new Error('Recipe not found');
         })
         .catch(error => console.log(`Error: ${error}`));
+      } else {
+        throw new Error('User not found');
       }
-
-      throw new Error('User not found');
     })
     .catch(error => console.log(`Error: ${error}`));
   });
