@@ -36,7 +36,7 @@ if (cluster.isMaster) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  mongoose.connect(uri);
+  mongoose.connect(devURI);
 
   app.put('/favorites', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {
