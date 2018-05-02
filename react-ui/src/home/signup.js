@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './styles/Signup.css';
@@ -68,24 +68,27 @@ class Signup extends Component {
     return(
       <div className="Signup-container">
         <Header />
-          <form onSubmit={this.onSubmit} className="Signup-form">
-            <FieldGroup
-              id="formControlsUsername"
-              label="Create a username"
-              name="username"
-              placeholder="Enter your username"
-              value={this.state.username}
-              onChange={this.onInputChange}
-            />
-            <FieldGroup
-              id="formControlsPassword"
-              label="Create a password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onInputChange}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
+            <form onSubmit={this.onSubmit} className="Signup-form">
+              <FieldGroup
+                id="formControlsUsername"
+                label="Create username"
+                name="username"
+                placeholder="Enter your username"
+                value={this.state.username}
+                onChange={this.onInputChange}
+                required
+              />
+              <FieldGroup
+                id="formControlsPassword"
+                label="Create password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onInputChange}
+                required
+              />
+              <Button type="submit">Submit</Button>
+            </form>
         <Footer />
       </div>
     );

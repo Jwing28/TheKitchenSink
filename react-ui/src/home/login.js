@@ -70,13 +70,16 @@ class Login extends Component {
               placeholder="Enter your username"
               value={this.state.username}
               onChange={this.onInputChange}
+              required
             />
             <FieldGroup
               id="formControlsPassword"
               label="Password"
               name="password"
+              type="password"
               value={this.state.password}
               onChange={this.onInputChange}
+              required
             />
             <Button type="submit">Submit</Button>
           </form>

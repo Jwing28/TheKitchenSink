@@ -38,29 +38,49 @@ if (cluster.isMaster) {
 
   mongoose.connect(devURI);
 
-  app.put('/favorites', (req, res) => {
+  app.post('/register', (req, res) => {
+      //hash user psw
+      //give empty favorites []
+      //send back success message
     Users.find({ username: req.body.username }, (err, userArray) => {
-      if (err) throw new Error(err)
-      if(userArray.length) {
-        res.send({ favorites: userArray[0].favorites });
-      } else {
-        res.send({ error: 'User not found' });
+      if(err) {
+        res.send({ error: err });
       }
-    })
+
+      if(userArray.length) {
+        res.send({ error: 'User already exists. Please login or try a different user.'});
+      } else {
+          //create hash
+        bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+          // store hash in database
+          Users.create({
+            username: req.body.username,
+            password: hash,
+            favorites:[]
+          }, (err, user) => {
+            res.send({ username: user.username });
+          });
+        });
+      }
+    });
   });
 
   app.post('/login', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {
-      if (err) throw new Error(err)
+      if (err) {
+        res.send({ error: err});
+      }
+
+      //empty [] = user not found
       if(userArray.length) {
         let userPassword = userArray.filter(user => user.username === req.body.username)[0].password;
-
+        //compare user submitted psw to psw in db
         bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
             if(passwordsMatch) {
               const user = userArray[0];
               res.send({ username: user.username, favorites: user.favorites});
             } else {
-              res.send({ error: 'Incorrect password'});
+              res.send({ error: 'Incorrect password. Please try again.'});
             }
         })
         .catch((err) => console.log(`Error comparing passwords: ${err}`));
@@ -109,6 +129,17 @@ if (cluster.isMaster) {
       }
     })
     .catch(error => console.log(`Error: ${error}`));
+  });
+
+  app.put('/favorites', (req, res) => {
+    Users.find({ username: req.body.username }, (err, userArray) => {
+      if (err) throw new Error(err)
+      if(userArray.length) {
+        res.send({ favorites: userArray[0].favorites });
+      } else {
+        res.send({ error: 'User not found' });
+      }
+    })
   });
 
   app.delete('/recipe', (req, res) => {
