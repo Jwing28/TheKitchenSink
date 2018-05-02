@@ -64,7 +64,7 @@ class Login extends Component {
         <Header />
           <form onSubmit={this.onSubmit} className="Login-form">
             <FieldGroup
-              id="formControlsUsername"
+              className="Login-form-control"
               label="Username"
               name="username"
               placeholder="Enter your username"
@@ -73,7 +73,7 @@ class Login extends Component {
               required
             />
             <FieldGroup
-              id="formControlsPassword"
+              className="Login-form-control"
               label="Password"
               name="password"
               type="password"
@@ -81,7 +81,14 @@ class Login extends Component {
               onChange={this.onInputChange}
               required
             />
-            <Button type="submit">Submit</Button>
+            <Button bsStyle="primary" type="submit">Submit</Button>
+            <p className="Login-form-message">Not registered?&nbsp;
+              <a onClick={() => this.props.history.push({
+                pathname: '/signup'
+              })}>
+                Signup
+              </a>
+            </p>
           </form>
         <Footer />
       </div>

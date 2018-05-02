@@ -8,3 +8,23 @@
   text-align: left;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.Signup-form-control {
+  border-radius: 0;
+}
+
+.Signup-form button {
+  text-transform: uppercase;
+  background: #23527C;
+  border: 0;
+  width: 100%;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.Signup-form-message {
+  margin: 10px 0;
+}

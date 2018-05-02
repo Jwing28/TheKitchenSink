@@ -1,5 +1,30 @@
 .Login-form {
-  height: 71vh;
   width: 50%;
-  margin: 0 auto;
+  background: #1e2228;
+  color: white;
+  max-width: 360px;
+  margin: 20% auto;
+  padding: 45px;
+  text-align: left;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.Login-form-control {
+  border-radius: 0;
+}
+
+.Login-form button {
+  text-transform: uppercase;
+  background: #23527C;
+  border: 0;
+  width: 100%;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.Login-form-message {
+  margin: 10px 0;
 }
