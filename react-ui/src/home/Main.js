@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router'
-import Login from './Login';
-import Signup from './Signup';
+import Login from './login';
+import Signup from './signup';
 import Landing from './Landing';
-import Profile from '../users/Profile';
+import Profile from '../users/profile';
 import Recipes from '../users/Recipes';
 import FourOhFour from '../components/404';
 
