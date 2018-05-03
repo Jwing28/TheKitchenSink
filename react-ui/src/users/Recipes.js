@@ -19,23 +19,6 @@ class Recipes extends Component {
   }
 
   componentDidMount() {
-
-    // fetch(url)
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(apiData => {
-    //     const recipeResults = JSON.parse(apiData.body);
-    //     this.setState({recipes: [...this.state.recipes, recipeResults]});
-    //
-    //     return fetch('/favorites')
-    //   })
-    //   .then(favoritesData => {
-    //     console.log('favorites data', favoritesData);
-    //   })
-    //   .catch(error => {
-    //     console.error(`Error getting recipes:${error}`);
-    //   });
     const data = JSON.stringify({
       username: this.props.location.state.username
     });
@@ -47,9 +30,7 @@ class Recipes extends Component {
         'content-type':'application/json'
       }
     })
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(favoritesData => {
         this.setState({ favorites: favoritesData.favorites });
 

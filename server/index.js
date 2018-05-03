@@ -39,9 +39,6 @@ if (cluster.isMaster) {
   mongoose.connect(devURI);
 
   app.post('/register', (req, res) => {
-      //hash user psw
-      //give empty favorites []
-      //send back success message
     Users.find({ username: req.body.username }, (err, userArray) => {
       if(err) {
         res.send({ error: err });
@@ -50,7 +47,7 @@ if (cluster.isMaster) {
       if(userArray.length) {
         res.send({ error: 'User already exists. Please login or try a different user.'});
       } else {
-          //create hash
+        //create hash
         bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
           // store hash in database
           Users.create({
@@ -92,13 +89,14 @@ if (cluster.isMaster) {
   });
 
   app.put('/save', (req, res) => {
+    console.log('test /save', req.body);
     Users.update({
       username: req.body.username },
       { $push: { favorites: req.body.recipe }
     })
     .then(result => {
       console.log(`Recipe added: ${result}`);
-      res.send('Recipe Added.');
+      res.send({ success: true });
       mongoose.connection.close();
     })
     .catch(error => console.log(`Error pushing to db: ${error}`));
@@ -114,16 +112,26 @@ if (cluster.isMaster) {
         Users.find({
           favorites: req.body.recipe
         })
-        .then(recipeResult => {
-          if(recipeResult.length) {
-            res.send({ success: true });
-            mongoose.connection.close();
+        .then(user => {
+          if(user.length) {
+            //check if recipe found is current user's recipe
+            if(req.body.recipe === 'Crash Hot Potatoes') {
+              console.log('hotpotatoes, reqbodyusername', req.body.username);
+              console.log('user.username', user[0].username);
+            }
+            if(req.body.username === user[0].username) {
+              res.send({ success: true });
+              mongoose.connection.close();
+            } else {
+              res.send({ success: false });
+            }
+            throw new Error('Found recipe, wrong user.');
           }else {
-            res.send({ success: false});
-            //throw new Error('Recipe not found');
+            res.send({ success: false });
+            throw new Error('Recipe not found');
           }
         })
-        .catch(error => console.log(`Error: ${error}`));
+        .catch(error => console.log(`${error}`));
       } else {
         throw new Error('User not found');
       }

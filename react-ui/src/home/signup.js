@@ -31,7 +31,6 @@ class Signup extends Component {
       username:this.state.username,
       password: this.state.password
     });
-    //need to create route ****
     fetch('/register', {
       method: 'POST',
       body: data,
@@ -55,7 +54,7 @@ class Signup extends Component {
           });
         }
       }).catch(e => {
-        console.log(`API call failed: ${e}`);
+        console.log(`Failed to register user: ${e}`);
       });
   }
 
@@ -88,7 +87,7 @@ class Signup extends Component {
                 required
               />
               <Button bsStyle="primary" type="submit">Submit</Button>
-              <p className="Signup-form-message">Already registered?&nbsp; 
+              <p className="Signup-form-message">Already registered?&nbsp;
                 <a onClick={() => this.props.history.push({
                   pathname: '/login'
                 })}>

@@ -15,9 +15,15 @@ class Card extends Component {
     };
   }
 
+//what you get back, response
+//response body is not ready to be consumed
+// return response.json()
+//now in the next .then you can use what is provided
   componentDidMount() {
     const data = JSON.stringify(this.state.data);
-
+    // if(this.state.data.recipe === 'Crash Hot Potatoes') {
+    //   console.log("TEST", this.state.data.recipe)
+    // }
     fetch('/recipeStatus', {
       method: 'PUT',
       body: data,
@@ -25,12 +31,15 @@ class Card extends Component {
         'content-type':'application/json'
       }
     })
-      .then(response => {
-        if(response.success) {
-          console.log('?',this.state.saved);
+    .then(response => response.json())
+      .then(recipeData => {
+        if(recipeData.success) {
+
           this.setState({
             saved: !this.state.saved
           });
+        } else {
+          throw new Error('Could not find recipe in db.');
         }
       })
       .catch(error => {
@@ -56,8 +65,6 @@ class Card extends Component {
     .catch(error => {
       console.log(`Attempted to delete recipe failed: ${error}`);
     });
-    //commented out for testing
-    // this.setState({ saved: !this.state.saved });
   }
 
   onSave = () => {
@@ -70,14 +77,15 @@ class Card extends Component {
         'content-type':'application/json'
       }
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`status ${response.status}`);
+    .then(response => response.json())
+      .then(saveData => {
+        if (saveData.success) {
+          this.setState({
+            saved: !this.state.saved
+          });
+        } else {
+          throw new Error(`Status: ${saveData.status}`);
         }
-
-        this.setState({
-          saved: !this.state.saved
-        });
       })
       .catch(error => {
         console.log(`Attempt to save recipe failed: ${error}`);
@@ -113,7 +121,3 @@ class Card extends Component {
 }
 
 export default Card;
-
-//save - needs to do a post request to mongo db
-//db - need an update route to push the recipe name to favorites
-//pass the username and the recipe on request
