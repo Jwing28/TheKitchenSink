@@ -43,7 +43,7 @@ class Card extends Component {
         }
       })
       .catch(error => {
-        console.log(`Attempt to check recipe status failed: ${error}`);
+        console.log(`Check recipe status failed: ${error}, ${this.state.data.recipe}`);
       })
   }
 
@@ -66,10 +66,10 @@ class Card extends Component {
       console.log(`Attempted to delete recipe failed: ${error}`);
     });
   }
-
+//???
   onSave = () => {
     const data = JSON.stringify(this.state.data);
-
+    console.log('??')
     fetch('/save', {
       method: 'PUT',
       body: data,
