@@ -75,6 +75,7 @@ if (cluster.isMaster) {
         bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
             if(passwordsMatch) {
               const user = userArray[0];
+              console.log(`user logged in: ${user}`);
               res.send({ username: user.username, favorites: user.favorites});
             } else {
               res.send({ error: 'Incorrect password. Please try again.'});
@@ -151,6 +152,7 @@ if (cluster.isMaster) {
         res.send({ error: 'User not found' });
       }
     })
+    .catch(error => console.log(error));
   });
 
   app.delete('/recipe', (req, res) => {
