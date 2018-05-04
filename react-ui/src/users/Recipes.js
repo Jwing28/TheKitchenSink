@@ -33,14 +33,18 @@ class Recipes extends Component {
       .then(response => response.json())
       .then(favoritesData => {
         this.setState({ favorites: favoritesData.favorites });
-
         let apiKey = 'c25afe65342f2138c001fcb789db1059';
-        let url = `http://cors-proxy.htmldriven.com/?url=http://food2fork.com/api/search?key=${apiKey}&sort=r&q=shredded%20chicken`;
+        let proxy = 'https://cors.now.sh/';
+        let url = proxy + `https://food2fork.com/api/search?key=${apiKey}&sort=r&q=shredded%20chicken`;
+
         return fetch(url);
       })
-      .then(response => response.json())
+      .then(response => {
+        console.log('chk response', response);
+        return response.json();
+      })
       .then(recipesData => {
-        const recipeResults = JSON.parse(recipesData.body);
+        const recipeResults = recipesData.recipes;
         this.setState({recipes: [...this.state.recipes, recipeResults]});
       })
       .catch(error => console.error(`Error getting favorites:${error}`));

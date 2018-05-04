@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
 import { Button } from 'react-bootstrap';
 import Header from '../components/header';
@@ -19,12 +19,13 @@ class Login extends Component {
   }
 
   onSubmit = (e) => {
+
     e.preventDefault();
     const data = JSON.stringify({
       username:this.state.username,
       password: this.state.password
     });
-
+    console.log('before post request');
     fetch('/login', {
       method: 'POST',
       body: data,
@@ -42,7 +43,7 @@ class Login extends Component {
         if('error' in result) {
           this.setState({ error: !this.state.error });
         } else {
-
+          console.log('login?');
           this.props.history.push({
             pathname:'/profile',
             state: { user: result }

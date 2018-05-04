@@ -17,7 +17,7 @@ class Slider extends Component {
 
   //slider must have a link
   render() {
-    console.log('props', this.props.list)
+
     return(
       <Panel className={this.state.expanded ? 'Slider expanded' : 'Slider'} onClick={this.toggleClass}>
         <Panel.Heading className="Slider-heading">
