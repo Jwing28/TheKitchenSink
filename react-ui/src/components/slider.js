@@ -8,6 +8,7 @@ class Slider extends Component {
 
     this.state = {
       expanded: false,
+      list: []
     };
   }
 
@@ -15,9 +16,12 @@ class Slider extends Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
-  //slider must have a link
-  render() {
+  componentWillReceiveProps(nextProps) {
+    console.log('inside componentWillReceiveProps', nextProps);
+    this.setState({ list: nextProps.list });
+  }
 
+  render() {
     return(
       <Panel className={this.state.expanded ? 'Slider expanded' : 'Slider'} onClick={this.toggleClass}>
         <Panel.Heading className="Slider-heading">
@@ -25,8 +29,8 @@ class Slider extends Component {
         </Panel.Heading>
         <Panel.Body className={this.state.expanded ? 'Slider-list Slider-list-expanded' : 'Slider-list'}>
           <ol>
-            {this.props.list.length ?
-              this.props.list.map((item) => <li key={item}>{item}</li>)
+            {this.state.list.length ?
+              this.state.list.map((item, idx) => <li key={idx}>{item}</li>)
               : null
           }
           </ol>

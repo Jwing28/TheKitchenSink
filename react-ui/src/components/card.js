@@ -15,15 +15,9 @@ class Card extends Component {
     };
   }
 
-//what you get back, response
-//response body is not ready to be consumed
-// return response.json()
-//now in the next .then you can use what is provided
   componentDidMount() {
     const data = JSON.stringify(this.state.data);
-    // if(this.state.data.recipe === 'Crash Hot Potatoes') {
-    //   console.log("TEST", this.state.data.recipe)
-    // }
+
     fetch('/recipeStatus', {
       method: 'PUT',
       body: data,
@@ -43,13 +37,14 @@ class Card extends Component {
         }
       })
       .catch(error => {
-        console.log(`Check recipe status failed: ${error}, ${this.state.data.recipe}`);
+        //console.log(`Check recipe status failed: ${error}, ${this.state.data.recipe}`);
       })
   }
 
   onUnSave = () => {
     const data = JSON.stringify(this.state.data);
-
+    console.log('in onUnSave');
+    this.props.updateFavorites();
     fetch('recipe',{
       method: 'DELETE',
       body: data,
@@ -66,10 +61,10 @@ class Card extends Component {
       console.log(`Attempted to delete recipe failed: ${error}`);
     });
   }
-//???
+
   onSave = () => {
     const data = JSON.stringify(this.state.data);
-    console.log('??')
+    console.log('card onSave', data);
     fetch('/save', {
       method: 'PUT',
       body: data,
@@ -79,10 +74,14 @@ class Card extends Component {
     })
     .then(response => response.json())
       .then(saveData => {
+        //save favorite
         if (saveData.success) {
           this.setState({
             saved: !this.state.saved
           });
+          //invoke callback to re-render favorites slider
+          console.log('card onSave');
+          this.props.updateFavorites();
         } else {
           throw new Error(`Status: ${saveData.status}`);
         }

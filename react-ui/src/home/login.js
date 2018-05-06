@@ -19,13 +19,12 @@ class Login extends Component {
   }
 
   onSubmit = (e) => {
-
     e.preventDefault();
     const data = JSON.stringify({
       username:this.state.username,
       password: this.state.password
     });
-    console.log('before post request');
+
     fetch('/login', {
       method: 'POST',
       body: data,
@@ -64,6 +63,7 @@ class Login extends Component {
       <div className="Login-container">
         <Header />
           <form onSubmit={this.onSubmit} className="Login-form">
+            <h3 className="Login-form-title">Login</h3>
             <FieldGroup
               className="Login-form-control"
               label="Username"

@@ -18,13 +18,6 @@ class Signup extends Component {
     };
   }
 
-  //register route must check if
-  //user name already exists
-    //if exist, need to popup link to send them to login
-
-    //Username
-    //create a password
-
   onSubmit = (e) => {
     e.preventDefault();
     const data = JSON.stringify({
@@ -68,6 +61,7 @@ class Signup extends Component {
       <div className="Signup-container">
         <Header />
             <form onSubmit={this.onSubmit} className="Signup-form">
+              <h3 className="Signup-form-title">Signup</h3>
               <FieldGroup
                 className="Signup-form-control"
                 label="Create username"

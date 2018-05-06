@@ -23,6 +23,7 @@ class Recipes extends Component {
       username: this.props.location.state.username
     });
 
+    //retrieve user's favorites
     fetch('/favorites', {
       method: 'PUT',
       body: data,
@@ -32,6 +33,7 @@ class Recipes extends Component {
     })
       .then(response => response.json())
       .then(favoritesData => {
+        console.log('after retreive favorites', favoritesData);
         this.setState({ favorites: favoritesData.favorites });
         let apiKey = 'c25afe65342f2138c001fcb789db1059';
         let proxy = 'https://cors.now.sh/';
@@ -50,13 +52,46 @@ class Recipes extends Component {
       .catch(error => console.error(`Error getting favorites:${error}`));
   }
 
+  updateFavorites = () => {
+    console.log('inside updateFavorites');
+    const data = JSON.stringify({
+      username: this.props.location.state.username
+    });
+
+    fetch('/favorites', {
+      method: 'PUT',
+      body: data,
+      headers: {
+        'content-type':'application/json'
+      }
+    })
+      .then(response => {
+        console.log('response to update favorites? ', response);
+        return response.json();
+      })
+      .then(favoritesData => {
+        //not getting back
+        console.log('re-loaded favorites', favoritesData)
+        if(favoritesData.favorites) {
+          this.setState({ favorites: favoritesData.favorites });
+        } else {
+          throw new Error(favoritesData.error);
+        }
+      })
+      .catch(error => console.error(`Error getting favorites:${error}`));
+  }
+
   render() {
     return(
       <div className="Recipes">
         <Header />
           <div className="Recipes-body">
-            <Slider list={this.state.favorites} />
-            <Grid items={this.state.recipes} username={this.props.location.state.username} />
+            <Slider list={this.state.favorites} username={this.props.location.state.username} />
+            <Grid
+              items={this.state.recipes}
+              username={this.props.location.state.username}
+              updateFavorites={() => this.updateFavorites()}
+            />
           </div>
         <Footer />
       </div>
