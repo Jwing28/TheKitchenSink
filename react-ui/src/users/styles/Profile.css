@@ -3,10 +3,12 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
 .Profile-form {
   margin-bottom: 5%;
+
 }
 
 .Profile-form-actions {
@@ -14,4 +16,8 @@
   flex-direction: row;
   justify-content: space-around;
   margin-top: 5%;
+}
+
+.Profile-ingredients {
+  margin-bottom: 20%;
 }

@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import List from '../components/list';
 import { Button, PageHeader } from 'react-bootstrap';
 import FieldGroup from '../components/fieldgroup';
+import Header from '../components/header';
+import Footer from '../components/footer';
 import './styles/Profile.css';
 
 class Profile extends Component {
@@ -28,7 +30,7 @@ class Profile extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    //redirect to recipes page 
+    //redirect to recipes page
     this.props.history.push({
       pathname:'./Recipes',
       state: {
@@ -46,6 +48,7 @@ class Profile extends Component {
   render() {
     return(
       <div className="Profile-container">
+        <Header />
         <PageHeader>
           Welcome, {this.props.location.state.user.username}.
           <div>
@@ -69,6 +72,7 @@ class Profile extends Component {
           this.state.ingredients : this.state.example}
           className="Profile-ingredients"
         />
+        <Footer />
       </div>
     );
   }

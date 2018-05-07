@@ -36,7 +36,7 @@ if (cluster.isMaster) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  mongoose.connect(uri);
+  mongoose.connect(devURI);
 
   app.post('/register', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {
@@ -70,6 +70,7 @@ if (cluster.isMaster) {
 
       //empty [] = user not found
       if(userArray.length) {
+        console.log('check login', req.body);
         let userPassword = userArray.filter(user => user.username === req.body.username)[0].password;
         //compare user submitted psw to psw in db
         bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
@@ -106,47 +107,27 @@ if (cluster.isMaster) {
   //check if recipe is saved in favorites
   app.put('/recipeStatus', (req, res) => {
     Users.find({
-      username: req.body.username
+      username: req.body.username,
+      favorites: req.body.recipe
     })
-    .then(userResult => {
-      if(userResult.length) {
-        Users.find({
-          favorites: req.body.recipe
-        })
-        .then(user => {
-          if(user.length) {
-            //removes unrelated users from array before any comparison is done.
-            user = user.filter(user => (user.username === req.body.username));
-            if(req.body.recipe === 'Jalapeno Popper Grilled Cheese Sandwich' || 'Crash Hot Potatoes') {
-              console.log('reqbodyusername', req.body.username);
-              console.log('user', user);
-              console.log('user.username', user[0].username);
-            }
-
-            if(req.body.username === user[0].username) {
-              res.send({ success: true });
-              mongoose.connection.close();
-            } else {
-              res.send({ success: false });
-            }
-            throw new Error('Found recipe, wrong user.');
-          }else {
-            res.send({ success: false });
-            throw new Error('Recipe not found, user:', user);
-          }
-        })
-        .catch(error => console.log(`${error}`));
-      } else {
-        throw new Error('User not found, userResult:', userResult);
+    .then(user => {
+      if(user.length) {
+        res.send({ success: true });
+        mongoose.connection.close();
+      }else {
+        res.send({ success: false });
+        throw new Error('User not found', user);
       }
     })
-    .catch(error => console.log(`Error: ${error}`));
+    .catch(error => console.log(error))
   });
 
   app.put('/favorites', (req, res) => {
+    console.log('in /favorites before users.find');
     Users.find({ username: req.body.username }, (err, userArray) => {
       if (err) throw new Error(err)
       if(userArray.length) {
+        console.log('retrieving favorites', userArray[0].favorites);
         res.send({ favorites: userArray[0].favorites });
       } else {
         res.send({ error: 'User not found' });
