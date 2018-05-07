@@ -36,9 +36,10 @@ class Recipes extends Component {
       .then(favoritesData => {
         console.log('after retreive favorites', favoritesData);
         this.setState({ favorites: favoritesData.favorites });
-        let apiKey = 'c25afe65342f2138c001fcb789db1059';
-        let proxy = 'https://cors.now.sh/';
-        let url = proxy + `https://food2fork.com/api/search?key=${apiKey}&sort=r&q=shredded%20chicken`;
+        const apiKey = 'c25afe65342f2138c001fcb789db1059';
+        const proxy = 'https://cors.now.sh/';
+        const ingredients = this.state.ingredients.join('%20');
+        const url = proxy + `https://food2fork.com/api/search?key=${apiKey}&sort=r&q=${ingredients}`;
 
         return fetch(url);
       })
@@ -102,11 +103,3 @@ class Recipes extends Component {
 }
 
 export default Recipes;
-
-/*
-
-Going to need this:
-
-pass up to 5 ingredients user enters to results page
-use these ingredients in the api call that you will make below
-*/
