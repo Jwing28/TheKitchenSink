@@ -1,4 +1,4 @@
-.Profile-container {
+.Profile {
   display:flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,6 +18,6 @@
   margin-top: 5%;
 }
 
-.Profile-ingredients {
-  margin-bottom: 20%;
+.Profile > ul {
+  margin-bottom: 30vh;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import List from '../components/list';
 import { Button, PageHeader } from 'react-bootstrap';
 import FieldGroup from '../components/fieldgroup';
@@ -14,8 +14,7 @@ class Profile extends Component {
       user: {},
       ingredient: '',
       ingredients:[],
-      limit: 5,
-      example: ['Ingredient, Ingredient']
+      example: ['Example Ingredient']
     };
   }
 
@@ -47,35 +46,47 @@ class Profile extends Component {
 
   render() {
     return(
-      <div className="Profile-container">
-        <Header />
-        <PageHeader>
-          Welcome, {this.props.location.state.user.username}.
-          <div>
-            <small>Enter your ingredients (max 5):</small>
-          </div>
-        </PageHeader>
-        <form onSubmit={this.onAdd} className="Profile-form">
-          <FieldGroup
-            type="text"
-            label="Ingredient"
-            name="ingredient"
-            value={this.state.ingredient}
-            onChange={this.onInputChange}
-          />
-          <div className="Profile-form-actions">
-            <Button type="submit" bsStyle="primary">Add</Button>
-            <Button bsStyle="success" onClick={this.onSubmit}>Submit</Button>
-          </div>
-        </form>
-        <List items={this.state.ingredients.length ?
-          this.state.ingredients : this.state.example}
-          className="Profile-ingredients"
-        />
-        <Footer />
+      <div>
+        {
+          this.props.location.state === undefined ?
+            <div className="Profile-error">
+              <h2>You are not logged in. Please Signin or Signup.</h2>
+              <Link to='/login'><button className="Profile-error-signin">Signin</button></Link>
+              <Link to='/signup'><button className="Profile-error-signup">Signup</button></Link>
+            </div> :
+            <div className="Profile">
+              <Header />
+              <PageHeader>
+                Welcome, {this.props.location.state.user.username}.
+                <div>
+                  <small>Enter your ingredients (max 5):</small>
+                </div>
+              </PageHeader>
+              <form onSubmit={this.onAdd} className="Profile-form">
+                <FieldGroup
+                  type="text"
+                  label="Ingredient"
+                  name="ingredient"
+                  value={this.state.ingredient}
+                  onChange={this.onInputChange}
+                />
+                <div className="Profile-form-actions">
+                  <Button type="submit" bsStyle="primary">Add</Button>
+                  <Button bsStyle="success" onClick={this.onSubmit}>Submit</Button>
+                </div>
+              </form>
+              <List items={this.state.ingredients.length ?
+                this.state.ingredients : this.state.example}
+                className="Profile-ingredients"
+              />
+              <Footer />
+            </div>
+        }
       </div>
     );
   }
 }
+
+
 
 export default withRouter(Profile);
