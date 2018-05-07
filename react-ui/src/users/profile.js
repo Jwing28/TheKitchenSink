@@ -56,6 +56,7 @@ class Profile extends Component {
             </div> :
             <div className="Profile">
               <Header />
+              <Link to='/login' className="Profile-logout">Logout</Link>
               <PageHeader>
                 Welcome, {this.props.location.state.user.username}.
                 <div>

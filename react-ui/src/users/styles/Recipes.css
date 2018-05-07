@@ -1,4 +1,14 @@
+.Recipes {
+  display: flex;
+  flex-direction: column;
+}
+
 .Recipes-body {
   display:flex;
   flex-direction: row;
+}
+
+.Recipes-logout {
+  align-self: flex-end;
+  margin-right: 5%;
 }

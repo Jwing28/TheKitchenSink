@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '../components/grid';
+import { Link } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Slider from '../components/slider';
@@ -85,6 +86,7 @@ class Recipes extends Component {
     return(
       <div className="Recipes">
         <Header />
+          <Link to='/login' className="Recipes-logout">Logout</Link>
           <div className="Recipes-body">
             <Slider list={this.state.favorites} username={this.props.location.state.username} />
             <Grid

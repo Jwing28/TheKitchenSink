@@ -6,9 +6,13 @@
   width: 100%;
 }
 
+.Profile-logout {
+  align-self: flex-end;
+  margin-right: 5%;
+}
+
 .Profile-form {
   margin-bottom: 5%;
-
 }
 
 .Profile-form-actions {
