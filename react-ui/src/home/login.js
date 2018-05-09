@@ -65,6 +65,7 @@ class Login extends Component {
           <form onSubmit={this.onSubmit} className="Login-form">
             <h3 className="Login-form-title">Login</h3>
             <FieldGroup
+              id="Login-username"
               className="Login-form-control"
               label="Username"
               name="username"
@@ -74,6 +75,7 @@ class Login extends Component {
               required
             />
             <FieldGroup
+              id="Login-password"
               className="Login-form-control"
               label="Password"
               name="password"
@@ -98,51 +100,3 @@ class Login extends Component {
 }
 
 export default withRouter(Login);
-//
-// class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       message: null,
-//       fetching: true
-//     };
-//   }
-//
-//   componentDidMount() {
-//     fetch('/api')
-//       .then(response => {
-//         if (!response.ok) {
-//           throw new Error(`status ${response.status}`);
-//         }
-//         return response.json();
-//       })
-//       .then(json => {
-//         this.setState({
-//           message: JSON.stringify(json),
-//           fetching: false
-//         });
-//       }).catch(e => {
-//         this.setState({
-//           message: `API call failed: ${e}`,
-//           fetching: false
-//         });
-//       })
-//   }
-//
-//   render() {
-//     return (
-//       <div className="App">
-//         <div className="App-header">
-//         </div>
-//         <p className="App-intro">
-//             {'create-react-app with a custom Node/Express server'}
-//         </p>
-//         <p className="App-intro">
-//           {this.state.fetching
-//             ? 'Fetching message from API'
-//             : this.state.message}
-//         </p>
-//       </div>
-//     );
-//   }
-// }
