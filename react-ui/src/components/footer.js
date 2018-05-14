@@ -11,10 +11,10 @@ const footer = () => (
       <a href="#">Portfolio</a>
     </section>
     <section className="Footer-links">
-      <a href="#">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/jwingz/">LinkedIn</a>
     </section>
     <section className="Footer-links">
-      <a href="#">Twitter</a>
+      <a href="https://twitter.com/JonWingz">Twitter</a>
     </section>
     <section className="Footer-author">
       <address><a href="https://github.com/jwing28">Created by Jonathan Lee</a></address>
