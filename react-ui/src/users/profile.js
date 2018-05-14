@@ -51,8 +51,10 @@ class Profile extends Component {
           this.props.location.state === undefined ?
             <div className="Profile-error">
               <h2>You are not logged in. Please Signin or Signup.</h2>
-              <Link to='/login'><button className="Profile-error-signin">Signin</button></Link>
-              <Link to='/signup'><button className="Profile-error-signup">Signup</button></Link>
+              <div className="Profile-error-actions">
+                <Link to='/login'><Button>Signup</Button></Link>
+                <Link to='/signup'><Button>Signup</Button></Link>
+              </div>
             </div> :
             <div className="Profile">
               <Header />
