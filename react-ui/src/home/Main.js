@@ -8,8 +8,6 @@ import Recipes from '../users/Recipes';
 import FourOhFour from '../components/404';
 import { BrowserRouter } from 'react-router-dom';
 
-
-//we want user to go to login OR sign up, not both = switch
 class Main extends Component {
   render() {
     return(
