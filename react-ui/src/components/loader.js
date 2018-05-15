@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/loader.css';
 
 export const Loader = () => (
-  <div className="container">
+  <div className="Loader-container">
     <div className="load-text">
       Refilling the glass...
     </div>

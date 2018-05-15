@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
-import { Alert, Button, Panel } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './styles/Signup.css';

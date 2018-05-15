@@ -1,31 +1,29 @@
-.container {
+.Loader-container {
   display:flex;
   flex-direction:column;
   justify-content:center;
-  background: #eff0f2;
   box-sizing: border-box;
   margin: 0 auto;
+  background: lightgray;
 }
 
 .load-text {
   font-size: 2rem;
   font-family: verdana;
   margin: 5%;
-  color: orange;
+  color: #ff7f33;
   font-weight: bold;
 }
 
 .glass {
   height:290px;
   width:149px;
-  background: white;
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
   border-top-left-radius: 120px 30px;
   border-top-right-radius: 120px 30px;
   margin: auto;
   padding-top: 100px;
-  background-color: white;
   opacity: 0.6;
   border: 1px solid black;
   position:relative;
@@ -38,7 +36,7 @@
   width: 147px;
   top: 0px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1.5px solid black;
   box-shadow: 0 0 15px #eee;
 }
 
@@ -57,7 +55,7 @@
   left:0;
   height: 15%;
   width:85%;
-  background: darkorange;
+  background: #ff7f33;
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
   border-top-left-radius: 120px 30px;

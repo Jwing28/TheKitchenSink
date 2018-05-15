@@ -1,12 +1,12 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown, NavItem, MenuItem  } from 'react-bootstrap';
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import './styles/header.css';
 
 const header = () => (
   <Navbar inverse collapseOnSelect className="Header">
     <Navbar.Header>
       <Navbar.Brand className="Header-brand">
-        <img src="https://png.icons8.com/cotton/50/000000/restaurant.png" />
+        <img alt="applogo" src="https://png.icons8.com/cotton/50/000000/restaurant.png" />
         <a href="https://arcane-bayou-17022.herokuapp.com/">TheKitchenSink</a>
       </Navbar.Brand>
       <Navbar.Toggle />

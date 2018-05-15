@@ -1,14 +1,13 @@
 import React from 'react';
-import { Navbar, Panel  } from 'react-bootstrap';
 import './styles/footer.css';
 
 const footer = () => (
   <footer className="Footer">
     <section className="Footer-links">
-      <a href="#">About</a>
+      <a>About</a>
     </section>
     <section className="Footer-links">
-      <a href="#">Portfolio</a>
+      <a>Portfolio</a>
     </section>
     <section className="Footer-links">
       <a href="https://www.linkedin.com/in/jwingz/">LinkedIn</a>

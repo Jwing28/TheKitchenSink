@@ -88,7 +88,6 @@ class Recipes extends Component {
 
   updateRecipeNext = () => {
     let updatedRecipeLength;
-    let start = this.state.recipeLength.start;
     let stop = this.state.recipeLength.stop;
     let recipes = this.state.recipes[0].length;
 
@@ -116,7 +115,7 @@ class Recipes extends Component {
       //is selected upon reaching last "page" of grid
       updatedRecipeLength.stop =
         recipes -
-        (this.state.recipeLength.stop - this.state.recipeLength.start);
+        (this.state.recipeLength.stop - start);
       updatedRecipeLength.start -= 9;
       this.setState(updatedRecipeLength);
     } else {

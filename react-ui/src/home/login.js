@@ -63,8 +63,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log('error', this.state.error);
-    console.log(this.state.errorMessage);
     return(
       <div className="Login-container">
         <Header />
