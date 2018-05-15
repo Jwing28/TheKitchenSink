@@ -4,6 +4,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  background: lightgray;
 }
 
 .Profile-error {
@@ -29,7 +30,7 @@
 
 .Profile-logout {
   align-self: flex-end;
-  margin-right: 5%;
+  margin-right: 10%;
 }
 
 .Profile-form {

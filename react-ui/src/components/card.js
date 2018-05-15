@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Label, Panel } from 'react-bootstrap';
-import { cleanString } from '../lib/formats/data.utils';
+import { cleanString, limitString } from '../lib/formats/data.utils';
 import './styles/card.css';
 
 class Card extends Component {
@@ -98,7 +98,7 @@ class Card extends Component {
         <Panel bsStyle="primary">
           <Panel.Heading>
             <Panel.Title componentClass="h3" className="card-recipe-name">
-              {cleanString(this.props.recipe) || "Recipe"}
+              {limitString(cleanString(this.props.recipe)) || "Recipe"}
             </Panel.Title>
           </Panel.Heading>
           <div className="card-thumbnail-container">

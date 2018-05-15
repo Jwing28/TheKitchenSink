@@ -4,7 +4,6 @@
   justify-content:center;
   box-sizing: border-box;
   margin: 0 auto;
-  background: lightgray;
 }
 
 .load-text {
@@ -62,5 +61,5 @@
   border-top-right-radius: 120px 30px;
   margin-bottom:10%;
   margin-left: 8%;
-	animation: animateJuice 10s 10;
+	animation: animateJuice 3s 3;
 }
