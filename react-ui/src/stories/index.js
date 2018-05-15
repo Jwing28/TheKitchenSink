@@ -10,6 +10,7 @@ import List from '../components/list';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Slider from '../components/slider';
+import { Loader } from '../components/loader';
 
 import './styles/index.css';
 
@@ -123,3 +124,10 @@ storiesOf('Header-Footer', module)
         );
     }
   );
+
+  storiesOf('Loader', module)
+    .add('animation test', () => {
+      return(
+        <Loader />
+      );
+    })
