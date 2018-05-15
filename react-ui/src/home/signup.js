@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
-import { Button, Panel } from 'react-bootstrap';
+import { Alert, Button, Panel } from 'react-bootstrap';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './styles/Signup.css';
@@ -14,7 +14,8 @@ class Signup extends Component {
       username:'',
       password:'',
       result: null,
-      error: false
+      error: false,
+      errorMessage: ''
     };
   }
 
@@ -24,6 +25,7 @@ class Signup extends Component {
       username:this.state.username,
       password: this.state.password
     });
+    console.log('before fetch')
     fetch('/register', {
       method: 'POST',
       body: data,
@@ -32,6 +34,7 @@ class Signup extends Component {
       }
     })
       .then(response => {
+        console.log('inresponse')
         if (response.error) {
           throw new Error(`status ${response.status}`);
         }
@@ -39,7 +42,10 @@ class Signup extends Component {
       })
       .then(result => {
         if('error' in result) {
-          this.setState({ error: !this.state.error });
+          this.setState({
+            error: !this.state.error,
+            errorMessage: result.error
+          });
         } else {
           this.props.history.push({
             pathname:'/profile',
@@ -57,6 +63,8 @@ class Signup extends Component {
   }
 
   render() {
+    console.log('error', this.state.error);
+    console.log(this.state.errorMessage);
     return(
       <div className="Signup-container">
         <Header />
@@ -81,6 +89,12 @@ class Signup extends Component {
                 required
               />
               <Button bsStyle="primary" type="submit">Submit</Button>
+              {
+                this.state.error ?
+                <Alert bsStyle="danger" className="Signup-error">
+                  <strong>Error: {this.state.errorMessage}</strong>
+                </Alert> : null
+              }
               <p className="Signup-form-message">Already registered?&nbsp;
                 <a onClick={() => this.props.history.push({
                   pathname: '/login'

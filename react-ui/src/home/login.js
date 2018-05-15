@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import FieldGroup from '../components/fieldgroup';
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './styles/Login.css';
@@ -14,7 +14,8 @@ class Login extends Component {
       username:'',
       password:'',
       result: null,
-      error: false
+      error: false,
+      errorMessage: ''
     };
   }
 
@@ -40,7 +41,10 @@ class Login extends Component {
       })
       .then(result => {
         if('error' in result) {
-          this.setState({ error: !this.state.error });
+          this.setState({
+            error: !this.state.error,
+            errorMessage: result.error
+          });
         } else {
           console.log('login?');
           this.props.history.push({
@@ -59,6 +63,8 @@ class Login extends Component {
   }
 
   render() {
+    console.log('error', this.state.error);
+    console.log(this.state.errorMessage);
     return(
       <div className="Login-container">
         <Header />
@@ -85,6 +91,12 @@ class Login extends Component {
               required
             />
             <Button bsStyle="primary" type="submit">Submit</Button>
+            {
+              this.state.error ?
+              <Alert bsStyle="danger" className="Login-error">
+                <strong>Error: {this.state.errorMessage}</strong>
+              </Alert> : null
+            }
             <p className="Login-form-message">Not registered?&nbsp;
               <a onClick={() => this.props.history.push({
                 pathname: '/signup'

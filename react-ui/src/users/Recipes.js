@@ -76,7 +76,6 @@ class Recipes extends Component {
         return response.json();
       })
       .then(favoritesData => {
-        //not getting back
         console.log('re-loaded favorites', favoritesData)
         if(favoritesData.favorites) {
           this.setState({ favorites: favoritesData.favorites });
@@ -89,7 +88,11 @@ class Recipes extends Component {
 
   updateRecipeNext = () => {
     let updatedRecipeLength;
-    if(this.state.recipeLength.stop + 9 <= this.state.recipes[0].length) {
+    let start = this.state.recipeLength.start;
+    let stop = this.state.recipeLength.stop;
+    let recipes = this.state.recipes[0].length;
+
+    if(stop + 9 <= recipes) {
       updatedRecipeLength = this.state.recipeLength;
       updatedRecipeLength.start += 9;
       updatedRecipeLength.stop += 9;
@@ -97,19 +100,22 @@ class Recipes extends Component {
     } else {
       updatedRecipeLength = this.state.recipeLength;
       updatedRecipeLength.start += 9;
-      updatedRecipeLength.stop = this.state.recipes[0].length;
+      updatedRecipeLength.stop = recipes;
       this.setState(updatedRecipeLength);
     }
   }
 
   updateRecipePrevious = () => {
     let updatedRecipeLength;
-    if(this.state.recipeLength.stop === this.state.recipes[0].length) {
+    let start = this.state.recipeLength.start;
+    let stop = this.state.recipeLength.stop;
+    let recipes = this.state.recipes[0].length;
+    if(stop === recipes) {
       updatedRecipeLength = this.state.recipeLength;
       //calculation necessary to show 9 cards when previous
       //is selected upon reaching last "page" of grid
       updatedRecipeLength.stop =
-        this.state.recipes[0].length -
+        recipes -
         (this.state.recipeLength.stop - this.state.recipeLength.start);
       updatedRecipeLength.start -= 9;
       this.setState(updatedRecipeLength);
@@ -135,8 +141,6 @@ class Recipes extends Component {
   }
 
   render() {
-    console.log('start', this.state.recipeLength.start);
-    console.log('stop', this.state.recipeLength.stop);
     return(
       <div className="Recipes">
         <Header />

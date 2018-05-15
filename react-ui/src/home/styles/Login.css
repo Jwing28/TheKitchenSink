@@ -41,3 +41,9 @@
 .Login-form-message {
   margin: 10px 0;
 }
+
+.Login-error {
+  margin: 5% 0;
+  border-radius: 0;
+  padding: 1%;
+}
