@@ -4,13 +4,12 @@ import Card from './card';
 import './styles/grid.css';
 
 const grid = (props) => {
-  console.log('check props', props.items);
   return(
     !props.items.length ?
       <h3 className="Loading">Loading...</h3> :
       <Grid >
         <Row className="Grid-container">
-          {props.items[0].slice(0,11).map((item, idx) => (
+          {props.items[0].slice(props.start,props.stop).map((item, idx) => (
             <Card
               key={item.recipe_id}
               recipe={item.title}

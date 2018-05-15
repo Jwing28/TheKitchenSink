@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Label, Panel, Tooltip } from 'react-bootstrap';
+import { cleanString } from '../lib/formats/data.utils';
 import './styles/card.css';
 
 class Card extends Component {
@@ -97,10 +98,12 @@ class Card extends Component {
         <Panel bsStyle="primary">
           <Panel.Heading>
             <Panel.Title componentClass="h3" className="card-recipe-name">
-              {this.props.recipe || "Recipe"}
+              {cleanString(this.props.recipe) || "Recipe"}
             </Panel.Title>
           </Panel.Heading>
-          <img src={this.props.image} alt="" className="card-thumbnail-container"  />
+          <div className="card-thumbnail-container">
+            <img src={this.props.image} alt="" className="card-thumbnail"/>
+          </div>
             <p className="card-actions">
               <a href={this.props.source} target="_blank">
                 <Button bsStyle="info">

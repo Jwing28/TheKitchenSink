@@ -12,3 +12,11 @@
   align-self: flex-end;
   margin-right: 5%;
 }
+
+.Recipes-loading {
+  height: 50vh;
+}
+
+.Recipes-pages {
+  margin: 10% auto;
+}

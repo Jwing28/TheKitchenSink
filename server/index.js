@@ -123,7 +123,7 @@ if (cluster.isMaster) {
   });
 
   app.put('/favorites', (req, res) => {
-    console.log('in /favorites before users.find');
+    console.log('in /favorites before users.find', req.body.username);
     Users.find({ username: req.body.username }, (err, userArray) => {
       if (err) throw new Error(err)
       if(userArray.length) {

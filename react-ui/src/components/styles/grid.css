@@ -1,5 +1,30 @@
-.Loading {
-  height:100vh;
+.Loading-container {
+  width: 100vw;
+  height: 15vh;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  background: lightgray;
+}
+
+.Loading-container * {
+  margin-left: 2%;
+}
+
+.Loading-bar {
+    height: 5vh;
+    background-color: blue;
+    -webkit-animation-name: loading; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count:5;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes loading {
+    from {width: 10vw;}
+    to {width: 100vw;}
 }
 
 .Grid-container {
