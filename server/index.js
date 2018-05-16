@@ -136,14 +136,14 @@ if (cluster.isMaster) {
   });
 
   app.delete('/recipe', (req, res) => {
-    Users.update({
-      username: req.body.username },
+    Users.findOneAndUpdate(
+      { username: req.body.username },
       { $pull: { favorites: req.body.recipe }},
-      { multi: false },
+      { new: true },
       (err, docsUpdated) => {
         if (err) throw new Error(err)
-        console.log(`${docsUpdated} docs updated.`);
-        res.send('success');
+        console.log(`${JSON.stringify(docsUpdated)} docs updated.`);
+        res.send({ favorites: docsUpdated.favorites });
         mongoose.connection.close();
       });
   });

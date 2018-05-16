@@ -94,7 +94,6 @@ class Card extends Component {
   }
 
   render() {
-    console.log(this.state.tooltipVisible);
     return(
       <Col xs={12} sm={6} md={4} className="card-container">
         <Panel bsStyle="primary">
@@ -111,7 +110,7 @@ class Card extends Component {
             <p className="card-actions">
               {
                 this.state.tooltipVisible ? this.state.data.recipe : null
-              }              
+              }
               <a href={this.props.source} target="_blank">
                 <Button bsStyle="info">
                   Source

@@ -21,6 +21,7 @@ class Recipes extends Component {
         stop: 9
       }
     };
+    this.removeFavorite = this.removeFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -139,13 +140,44 @@ class Recipes extends Component {
     }
   }
 
+  removeFavorite(recipeName, username) {
+    const data = JSON.stringify({
+      recipe: recipeName,
+      username: username
+    });
+
+    console.log('removeFavorite?', data);
+
+    fetch('recipe',{
+      method: 'DELETE',
+      body: data,
+      headers: {
+        'content-type':'application/json'
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      console.log('check data.favorites', data);
+      this.setState({ favorites:  data.favorites });
+    })
+    .catch(error => {
+      console.log(`Attempted to delete recipe failed: ${error}`);
+    });
+  }
+
   render() {
     return(
       <div className="Recipes">
         <Header />
           <Link to='/login' className="Recipes-logout">Logout</Link>
           <div className="Recipes-body">
-            <Slider list={this.state.favorites} username={this.props.location.state.username} />
+            <Slider
+              removeFavorite={this.removeFavorite}
+              list={this.state.favorites}
+              username={this.props.location.state.username}
+            />
             <Grid
               className={this.state.recipes.length ? 'Recipes-grid' : 'Recipes-loading'}
               items={this.state.recipes}

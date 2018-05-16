@@ -33,13 +33,6 @@
   transition-duration: 1s;
 }
 
-/*
-div {
-  margin-left: -200px;
-  transition:1s;
+.Slider-delete {
+  padding: 3px 6px;
 }
-
-.clicked {
-  transition:1s;
-  margin-left: 0px;
-} */
