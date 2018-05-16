@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Label, Panel } from 'react-bootstrap';
+import { Button, Col, Label, Panel, Tooltip } from 'react-bootstrap';
 import { cleanString, limitString } from '../lib/formats/data.utils';
 import './styles/card.css';
 
@@ -8,11 +8,12 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      saved: false,
       data: {
         recipe: this.props.recipe,
         username: this.props.username
-      }
+      },
+      saved: false,
+      tooltipVisible:false
     };
   }
 
@@ -93,18 +94,24 @@ class Card extends Component {
   }
 
   render() {
+    console.log(this.state.tooltipVisible);
     return(
-      <Col xs={12} sm={6} md={4} lg={3} className="card-container">
+      <Col xs={12} sm={6} md={4} className="card-container">
         <Panel bsStyle="primary">
-          <Panel.Heading>
+          <Panel.Heading
+            onMouseEnter={() => this.setState({ tooltipVisible: true})}
+            onMouseLeave={() => this.setState({ tooltipVisible: false})}>
             <Panel.Title componentClass="h3" className="card-recipe-name">
-              {limitString(cleanString(this.props.recipe)) || "Recipe"}
+              {limitString(cleanString(this.state.data.recipe)) || "Recipe"}
             </Panel.Title>
           </Panel.Heading>
           <div className="card-thumbnail-container">
             <img src={this.props.image} alt="" className="card-thumbnail"/>
           </div>
             <p className="card-actions">
+              {
+                this.state.tooltipVisible ? this.state.data.recipe : null
+              }              
               <a href={this.props.source} target="_blank">
                 <Button bsStyle="info">
                   Source

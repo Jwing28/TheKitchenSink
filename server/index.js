@@ -70,7 +70,6 @@ if (cluster.isMaster) {
 
       //empty [] = user not found
       if(userArray.length) {
-        console.log('check login', req.body);
         let userPassword = userArray.filter(user => user.username === req.body.username)[0].password;
         //compare user submitted psw to psw in db
         bcrypt.compare(req.body.password, userPassword).then((passwordsMatch) =>  {
