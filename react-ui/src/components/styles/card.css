@@ -1,9 +1,17 @@
 .card-container {
-  border-radius: 5px;
   margin: 5% 0;
   box-sizing: border-box;
   max-width: 350px;
   max-height: 300px;
+}
+
+@media (max-width: 375px) {
+  .card-container {
+    margin: 15% 0;
+    box-sizing: border-box;
+    max-width: 350px;
+    max-height: 300px;
+  }
 }
 
 .card-tooltip {

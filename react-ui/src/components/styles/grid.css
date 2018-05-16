@@ -13,3 +13,8 @@
   justify-content: space-between;
   align-items: center;
 }
+
+/* before/after causing top and bottom row cards to be mis-aligned */
+.Grid-container .row:before, .Grid-container .row:after {
+  content: none;
+}
