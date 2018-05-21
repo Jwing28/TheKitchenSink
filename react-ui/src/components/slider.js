@@ -18,7 +18,9 @@ class Slider extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('inside componentWillReceiveProps', nextProps);
-    this.setState({ list: nextProps.list });
+    if(nextProps.list) {
+      this.setState({ list: nextProps.list });
+    }
   }
 
   render() {
@@ -49,33 +51,3 @@ class Slider extends Component {
   }
 }
 export default Slider;
-
-/*
-
-state.data: {
-  recipe: this.props.recipe,
-  username: this.props.username
-}
-
-1. each item in this.state.list.map.. is the recipe name.
-2. username = this.props.username - already being passed from recipes.
-
-const data = JSON.stringify(this.state.data);
-
-fetch('recipe',{
-  method: 'DELETE',
-  body: data,
-  headers: {
-    'content-type':'application/json'
-  }
-})
-.then(response => {
-  this.setState({
-    saved: !this.state.saved
-  });
-})
-.catch(error => {
-  console.log(`Attempted to delete recipe failed: ${error}`);
-});
-
-*/

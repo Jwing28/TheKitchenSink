@@ -59,7 +59,8 @@ if (cluster.isMaster) {
           });
         });
       }
-    });
+    })
+    .catch((err) => console.log(`Error registering new user: ${err}`));
   });
 
   app.post('/login', (req, res) => {
