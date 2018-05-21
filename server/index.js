@@ -36,7 +36,7 @@ if (cluster.isMaster) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  mongoose.connect(devURI);
+  mongoose.connect(uri);
 
   app.post('/register', (req, res) => {
     Users.find({ username: req.body.username }, (err, userArray) => {
