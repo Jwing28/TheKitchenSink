@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Label, Panel, Tooltip } from 'react-bootstrap';
+import { Button, Col, Label, Panel } from 'react-bootstrap';
 import { cleanString, limitString } from '../lib/formats/data.utils';
 import './styles/card.css';
 

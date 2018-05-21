@@ -63,8 +63,6 @@ class Signup extends Component {
   }
 
   render() {
-    console.log('error', this.state.error);
-    console.log(this.state.errorMessage);
     return(
       <div className="Signup-container">
         <Header />
