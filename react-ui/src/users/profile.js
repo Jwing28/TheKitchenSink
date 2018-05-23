@@ -62,7 +62,7 @@ class Profile extends Component {
               <PageHeader>
                 Welcome, {this.props.location.state.user.username}.
                 <div>
-                  <small>Enter your ingredients (max 5):</small>
+                  <small>Enter your ingredients:</small>
                 </div>
               </PageHeader>
               <form onSubmit={this.onAdd} className="Profile-form">
