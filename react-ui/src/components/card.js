@@ -45,8 +45,8 @@ class Card extends Component {
 
   onUnSave = () => {
     const data = JSON.stringify(this.state.data);
-    console.log('in onUnSave');
     this.props.updateFavorites();
+
     fetch('recipe',{
       method: 'DELETE',
       body: data,
@@ -66,7 +66,7 @@ class Card extends Component {
 
   onSave = () => {
     const data = JSON.stringify(this.state.data);
-    console.log('card onSave', data);
+
     fetch('/save', {
       method: 'PUT',
       body: data,
@@ -82,7 +82,6 @@ class Card extends Component {
             saved: !this.state.saved
           });
           //invoke callback to re-render favorites slider
-          console.log('card onSave');
           this.props.updateFavorites();
         } else {
           throw new Error(`Status: ${saveData.status}`);

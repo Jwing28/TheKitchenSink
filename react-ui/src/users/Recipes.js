@@ -41,13 +41,11 @@ class Recipes extends Component {
         return response.json()
       })
       .then(favoritesData => {
-        console.log('favoritesData', favoritesData);
-        this.setState({ favorites: favoritesData.favorites });
         const apiKey = 'c25afe65342f2138c001fcb789db1059';
         const proxy = 'https://cors.now.sh/';
         const ingredients = this.state.ingredients.join('%20');
         const url = proxy + `https://food2fork.com/api/search?key=${apiKey}&sort=r&q=${ingredients}`;
-
+        this.setState({ favorites: favoritesData.favorites });
         return fetch(url);
       })
       .then(response => {
@@ -55,7 +53,6 @@ class Recipes extends Component {
       })
       .then(recipesData => {
         const recipeResults = recipesData.recipes;
-        console.log('recipe results from db', recipeResults);
         this.setState({recipes: [...this.state.recipes, recipeResults]});
       })
       .catch(error => console.error(`Error getting favorites:${error}`));
@@ -77,7 +74,6 @@ class Recipes extends Component {
         return response.json();
       })
       .then(favoritesData => {
-        console.log('re-loaded favorites', favoritesData)
         if(favoritesData.favorites) {
           this.setState({ favorites: favoritesData.favorites });
         } else {
@@ -145,8 +141,6 @@ class Recipes extends Component {
       recipe: recipeName,
       username: username
     });
-
-    console.log('removeFavorite?', data);
 
     fetch('recipe',{
       method: 'DELETE',

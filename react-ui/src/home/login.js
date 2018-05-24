@@ -46,7 +46,6 @@ class Login extends Component {
             errorMessage: result.error
           });
         } else {
-          console.log('login?');
           this.props.history.push({
             pathname:'/profile',
             state: { user: result }

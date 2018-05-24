@@ -25,7 +25,7 @@ class Signup extends Component {
       username:this.state.username,
       password: this.state.password
     });
-    console.log('before fetch')
+
     fetch('/register', {
       method: 'POST',
       body: data,
@@ -34,7 +34,7 @@ class Signup extends Component {
       }
     })
       .then(response => {
-        console.log('inresponse')
+
         if (response.error) {
           throw new Error(`status ${response.status}`);
         }

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles/footer.css';
 
 const footer = () => (
   <footer className="Footer">
     <section className="Footer-links">
-      <a>About</a>
+      <Link to='/About'>About</Link>
     </section>
     <section className="Footer-links">
       <a>Portfolio</a>

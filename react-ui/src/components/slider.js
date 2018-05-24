@@ -17,7 +17,6 @@ class Slider extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('inside componentWillReceiveProps', nextProps);
     if(nextProps.list) {
       this.setState({ list: nextProps.list });
     }
